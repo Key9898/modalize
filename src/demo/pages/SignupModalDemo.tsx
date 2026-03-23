@@ -1,0 +1,61 @@
+import { useModal, SignupModal } from '../../index';
+import { CodeBlock } from '../components/CodeBlock';
+
+const codeExample = `import { useModal, SignupModal } from 'modalize';
+
+function Example() {
+  const { isOpen, open, close } = useModal();
+
+  return (
+    <>
+      <button onClick={open}>Create Account</button>
+      <SignupModal
+        isOpen={isOpen}
+        onClose={close}
+        onSubmit={(data) => console.log(data)}
+        showTerms
+      />
+    </>
+  );
+}`;
+
+export function SignupModalDemo() {
+  const { isOpen, open, close } = useModal();
+
+  return (
+    <div className="space-y-8">
+      <section className="space-y-2">
+        <h2 className="text-3xl font-bold font-display">Signup Modal</h2>
+        <p className="text-base-content/60 leading-relaxed">
+          Pre-defined registration form content including name, email, and password fields.
+        </p>
+      </section>
+
+      <section className="card bg-base-200/50 p-12 border border-base-300 items-center justify-center">
+        <div className="flex flex-col items-center gap-6">
+          <button className="btn btn-primary btn-md px-8 shadow-lg shadow-primary/20" onClick={open}>
+            Create Account
+          </button>
+          <p className="text-[12px] font-medium text-base-content/40 tracking-tight uppercase">
+            Built-in multi-step validation and terms check
+          </p>
+        </div>
+
+        <SignupModal
+          isOpen={isOpen}
+          onClose={close}
+          onSubmit={data => { alert(JSON.stringify(data)); close(); }}
+          showTerms
+        />
+      </section>
+
+      <section className="space-y-4">
+        <div className="flex items-center gap-2">
+          <div className="w-1 h-6 bg-primary rounded-full"></div>
+          <h3 className="text-xl font-bold">Usage</h3>
+        </div>
+        <CodeBlock code={codeExample} />
+      </section>
+    </div>
+  );
+}
