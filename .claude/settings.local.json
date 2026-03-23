@@ -4,7 +4,8 @@
       "Bash(grep -r \"highlight\\\\|prism\\\\|shiki\" C:/Users/keych/Development/Projects/Personal/Modalize/src --include=*.tsx --include=*.ts)",
       "Bash(npm install:*)",
       "Bash(npx tsc:*)",
-      "Bash(npm run:*)"
+      "Bash(npm run:*)",
+      "Bash(\"C:\\\\Users\\\\keych\\\\Development\\\\Projects\\\\Personal\\\\Modalize\\\\.npmrc\")"
     ]
   }
 }
