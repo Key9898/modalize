@@ -107,7 +107,7 @@ export function Navbar() {
             initial={false}
             whileHover={{ scale: 1.1, rotate: 5 }}
             whileTap={{ scale: 0.9 }}
-            href="https://github.com/keych"
+            href="https://github.com/Key9898/modalize"
             target="_blank"
             rel="noopener noreferrer"
             className="btn btn-ghost btn-sm btn-circle hover:bg-base-300 transition-colors"
