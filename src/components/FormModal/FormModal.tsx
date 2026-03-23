@@ -13,6 +13,7 @@ export function FormModal({
   submitText = 'Submit',
   cancelText = 'Cancel',
   loading = false,
+  radius,
   children,
 }: FormModalProps) {
   const handleSubmit = (e: FormEvent) => {
@@ -26,7 +27,7 @@ export function FormModal({
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} size="md">
+    <Modal isOpen={isOpen} onClose={onClose} size="md" radius={radius}>
       <Modal.Header>{title}</Modal.Header>
       <Modal.Body>
         <form id="modalize-form" onSubmit={handleSubmit} className="flex flex-col gap-4">

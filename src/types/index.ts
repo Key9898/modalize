@@ -1,13 +1,15 @@
-import React from 'react';
+import type { ReactNode } from 'react';
 
 // ===== Base Modal Types =====
 
 export type ModalSize = 'sm' | 'md' | 'lg' | 'xl' | 'full';
+export type ModalRadius = 'none' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | 'full';
 
 export interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
   size?: ModalSize;
+  radius?: ModalRadius;
   closeOnEsc?: boolean;
   closeOnBackdrop?: boolean;
   animation?: boolean;
@@ -19,51 +21,34 @@ export interface ModalProps {
   portalContainer?: HTMLElement;
   ariaLabel?: string;
   ariaDescribedBy?: string;
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 export interface ModalHeaderProps {
   className?: string;
   showCloseButton?: boolean;
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 export interface ModalBodyProps {
   className?: string;
   scrollable?: boolean;
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 export interface ModalFooterProps {
   className?: string;
-  align?: 'left' | 'center' | 'right' | 'between';
-  children: React.ReactNode;
+  align?: 'left' | 'center' | 'right';
+  children: ReactNode;
 }
 
-// ===== Hook Types =====
-
-export interface UseModalReturn {
-  isOpen: boolean;
-  open: () => void;
-  close: () => void;
-  toggle: () => void;
-}
-
-// ===== Pre-built Modal Types =====
-
-export interface ConfirmModalProps {
-  isOpen: boolean;
+export interface ModalContextValue {
   onClose: () => void;
-  onConfirm: () => void;
-  title?: string;
-  message: string;
-  confirmText?: string;
-  cancelText?: string;
-  variant?: 'danger' | 'warning' | 'info' | 'success';
-  size?: 'sm' | 'md' | 'lg';
-  loading?: boolean;
-  closeOnConfirm?: boolean;
+  size: ModalSize;
+  isClosing: boolean;
 }
+
+// ===== Specialty Modal Types =====
 
 export interface AlertModalProps {
   isOpen: boolean;
@@ -72,24 +57,29 @@ export interface AlertModalProps {
   message: string;
   buttonText?: string;
   variant?: 'info' | 'success' | 'warning' | 'error';
-  icon?: React.ReactNode;
+  icon?: ReactNode;
+  radius?: ModalRadius;
 }
 
-// ===== Auth Modal Types =====
-
-export interface SocialLoginConfig {
-  provider: 'google' | 'facebook' | 'github' | 'apple';
-  onClick: () => void;
-  icon?: React.ReactNode;
+export interface ConfirmModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  onConfirm: () => void | Promise<void>;
+  title?: string;
+  message: string;
+  confirmText?: string;
+  cancelText?: string;
+  variant?: 'danger' | 'warning' | 'info' | 'success';
+  size?: ModalSize;
+  radius?: ModalRadius;
+  loading?: boolean;
+  closeOnConfirm?: boolean;
 }
 
 export interface LoginModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onSubmit: (credentials: {
-    email: string;
-    password: string;
-  }) => void | Promise<void>;
+  onSubmit: (data: { email: string; password: string }) => void | Promise<void>;
   onForgotPassword?: () => void;
   onSignup?: () => void;
   title?: string;
@@ -97,17 +87,23 @@ export interface LoginModalProps {
   error?: string;
   successMessage?: string;
   showRememberMe?: boolean;
-  socialLogins?: SocialLoginConfig[];
+  socialLogins?: Array<{
+    provider: string;
+    icon?: ReactNode;
+    onClick: () => void;
+  }>;
+  radius?: ModalRadius;
 }
 
 export interface SignupData {
   email: string;
-  password: string;
-  confirmPassword: string;
+  password?: string;
+  confirmPassword?: string;
   name?: string;
+  [key: string]: unknown;
 }
 
-export type SignupField = 'name' | 'email' | 'password' | 'confirmPassword';
+export type SignupField = 'name' | 'email' | 'password' | 'confirmPassword' | string;
 
 export interface SignupModalProps {
   isOpen: boolean;
@@ -122,6 +118,7 @@ export interface SignupModalProps {
   termsUrl?: string;
   privacyUrl?: string;
   fields?: SignupField[];
+  radius?: ModalRadius;
 }
 
 export interface ForgotPasswordModalProps {
@@ -133,6 +130,7 @@ export interface ForgotPasswordModalProps {
   loading?: boolean;
   error?: string;
   successMessage?: string;
+  radius?: ModalRadius;
 }
 
 // ===== Media Modal Types =====
@@ -145,6 +143,7 @@ export interface ImageModalProps {
   title?: string;
   zoomable?: boolean;
   downloadable?: boolean;
+  radius?: ModalRadius;
 }
 
 export interface GalleryImage {
@@ -163,6 +162,7 @@ export interface GalleryModalProps {
   showNavigation?: boolean;
   loop?: boolean;
   onImageChange?: (index: number) => void;
+  radius?: ModalRadius;
 }
 
 export interface VideoModalProps {
@@ -175,9 +175,32 @@ export interface VideoModalProps {
   controls?: boolean;
   loop?: boolean;
   muted?: boolean;
+  radius?: ModalRadius;
 }
 
 // ===== Utility Modal Types =====
+
+export interface EmptyStateModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  title: string;
+  description?: string;
+  icon?: ReactNode;
+  action?: {
+    label: string;
+    onClick: () => void;
+  };
+  radius?: ModalRadius;
+}
+
+export interface LoadingModalProps {
+  isOpen: boolean;
+  message?: string;
+  showProgress?: boolean;
+  progress?: number;
+  spinner?: 'default' | 'dots' | 'pulse';
+  radius?: ModalRadius;
+}
 
 export interface FormModalProps {
   isOpen: boolean;
@@ -187,55 +210,29 @@ export interface FormModalProps {
   submitText?: string;
   cancelText?: string;
   loading?: boolean;
-  children: React.ReactNode;
+  radius?: ModalRadius;
+  children?: ReactNode;
 }
 
-export interface EmptyStateModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  title: string;
-  description?: string;
-  icon?: React.ReactNode;
-  action?: {
-    label: string;
-    onClick: () => void;
-  };
-}
-
-export interface LoadingModalProps {
-  isOpen: boolean;
-  message?: string;
-  showProgress?: boolean;
-  progress?: number;
-  spinner?: 'default' | 'dots' | 'pulse';
-}
-
-export interface BottomSheetProps {
-  isOpen: boolean;
-  onClose: () => void;
-  title?: string;
-  snapPoints?: ('25%' | '50%' | '75%' | '100%')[];
-  initialSnap?: number;
-  showHandle?: boolean;
-  closeOnBackdrop?: boolean;
-  children: React.ReactNode;
-}
-
-export interface DrawerProps {
-  isOpen: boolean;
-  onClose: () => void;
+export interface DrawerProps extends ModalProps {
   position?: 'left' | 'right' | 'top' | 'bottom';
-  size?: 'sm' | 'md' | 'lg' | 'full';
   title?: string;
   showCloseButton?: boolean;
-  closeOnEsc?: boolean;
-  children: React.ReactNode;
 }
 
-// ===== Internal Types =====
+export interface BottomSheetProps extends ModalProps {
+  snapPoints?: number[];
+  initialSnapIndex?: number;
+  title?: string;
+  showHandle?: boolean;
+}
 
-export interface ModalContextValue {
-  onClose: () => void;
-  size: ModalSize;
-  isClosing: boolean;
+/**
+ * Return type for the useModal hook.
+ */
+export interface UseModalReturn {
+  isOpen: boolean;
+  open: () => void;
+  close: () => void;
+  toggle: () => void;
 }

@@ -27,24 +27,27 @@ export function AlertModal({
   buttonText = 'OK',
   variant = 'info',
   icon,
+  radius,
 }: AlertModalProps) {
   const displayIcon = icon ?? defaultIcons[variant];
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} size="sm">
+    <Modal isOpen={isOpen} onClose={onClose} size="sm" radius={radius}>
       <Modal.Body>
-        <div className="flex flex-col items-center text-center py-4">
+        <div className="flex flex-col items-center text-center py-8 px-2">
           {displayIcon && (
-            <div className={`mb-4 ${variantClasses[variant]}`}>
+            <div 
+              className={`mb-6 p-4 bg-base-200/50 transition-all rounded-modalize ${variantClasses[variant]}`}
+            >
               {displayIcon}
             </div>
           )}
-          <h3 className="text-lg font-semibold mb-2">{title}</h3>
-          <p className="text-base-content/70">{message}</p>
+          <h3 className="text-xl font-bold mb-3 tracking-tight">{title}</h3>
+          <p className="text-base-content/60 leading-relaxed text-sm">{message}</p>
         </div>
       </Modal.Body>
       <Modal.Footer align="center">
-        <button className="btn btn-primary btn-sm btn-wide" onClick={onClose}>
+        <button className="btn btn-primary btn-md btn-wide shadow-lg shadow-primary/20" onClick={onClose}>
           {buttonText}
         </button>
       </Modal.Footer>

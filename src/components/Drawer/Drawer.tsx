@@ -15,6 +15,7 @@ export function Drawer({
   title,
   showCloseButton = true,
   closeOnEsc = true,
+  radius,
   children,
 }: DrawerProps) {
   useScrollLock(isOpen);
@@ -34,6 +35,8 @@ export function Drawer({
 
   if (!isOpen) return null;
 
+  const radiusClass = radius ? `modalize-drawer--radius-${radius}` : '';
+
   return (
     <Portal>
       {/* Backdrop */}
@@ -45,7 +48,7 @@ export function Drawer({
 
       {/* Drawer */}
       <div
-        className={`modalize-drawer modalize-drawer--${position} modalize-drawer--${size} z-[1001]`}
+        className={`modalize-drawer modalize-drawer--${position} modalize-drawer--${size} ${radiusClass} z-[1001]`}
         role="dialog"
         aria-modal="true"
       >

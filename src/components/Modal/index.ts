@@ -10,4 +10,5 @@ export type {
   ModalBodyProps,
   ModalFooterProps,
   ModalSize,
+  ModalRadius,
 } from './Modal.types';

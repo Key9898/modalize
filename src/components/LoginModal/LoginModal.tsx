@@ -18,6 +18,7 @@ export function LoginModal({
   successMessage,
   showRememberMe = false,
   socialLogins,
+  radius,
 }: LoginModalProps) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -29,7 +30,7 @@ export function LoginModal({
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} size="sm">
+    <Modal isOpen={isOpen} onClose={onClose} size="sm" radius={radius}>
       <Modal.Header>{title}</Modal.Header>
       <Modal.Body>
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">

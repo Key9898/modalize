@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useModal, AlertModal } from '../../index';
+import { useModal, AlertModal, type ModalRadius } from '../../index';
 import { CodeBlock } from '../components/CodeBlock';
 
 const codeExample = `import { useModal, AlertModal } from 'modalize';
@@ -24,6 +24,7 @@ function Example() {
 export function AlertModalDemo() {
   const { isOpen, open, close } = useModal();
   const [variant, setVariant] = useState<'info' | 'success' | 'warning' | 'error'>('info');
+  const [radius, setRadius] = useState<ModalRadius>('lg');
 
   return (
     <div className="space-y-8">
@@ -36,7 +37,7 @@ export function AlertModalDemo() {
 
       <section className="card bg-base-200/50 p-12 border border-base-300 items-center justify-center">
         <div className="flex flex-col items-center gap-6">
-          <div className="flex items-center gap-4">
+          <div className="flex flex-wrap items-center justify-center gap-4">
             <select 
               className="select select-bordered select-md bg-base-100 w-48" 
               value={variant} 
@@ -48,12 +49,26 @@ export function AlertModalDemo() {
               <option value="warning">Warning</option>
               <option value="error">Error</option>
             </select>
+            <select 
+              className="select select-bordered select-md bg-base-100 w-48" 
+              value={radius} 
+              onChange={e => setRadius(e.target.value as ModalRadius)}
+              aria-label="Alert modal radius selector"
+            >
+              <option value="none">Radius: None</option>
+              <option value="sm">Radius: SM</option>
+              <option value="md">Radius: MD</option>
+              <option value="lg">Radius: LG (Default)</option>
+              <option value="xl">Radius: XL</option>
+              <option value="2xl">Radius: 2XL</option>
+              <option value="full">Radius: Full</option>
+            </select>
             <button className="btn btn-primary btn-md w-48 shadow-lg shadow-primary/20" onClick={open}>
               Show Alert
             </button>
           </div>
           <p className="text-[12px] font-medium text-base-content/40 tracking-tight uppercase">
-            Click to trigger a system notification
+            Click to trigger a system notification with selected radius
           </p>
         </div>
 
@@ -61,6 +76,7 @@ export function AlertModalDemo() {
           isOpen={isOpen}
           onClose={close}
           variant={variant}
+          radius={radius}
           title="System Notification"
           message="This is a simple alert message to inform the user about something important happening in the application."
         />

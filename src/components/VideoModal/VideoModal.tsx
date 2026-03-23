@@ -14,6 +14,7 @@ export function VideoModal({
   controls = true,
   loop = false,
   muted = false,
+  radius,
 }: VideoModalProps) {
   const isYouTube = type === 'youtube';
   const isVimeo = type === 'vimeo';
@@ -37,10 +38,12 @@ export function VideoModal({
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} size="lg">
+    <Modal isOpen={isOpen} onClose={onClose} size="lg" radius={radius}>
       {title && <Modal.Header>{title}</Modal.Header>}
       <Modal.Body scrollable={false}>
-        <div className="relative w-full aspect-video rounded-lg overflow-hidden bg-black">
+        <div 
+          className="relative w-full aspect-video overflow-hidden bg-black shadow-lg my-2 rounded-modalize"
+        >
           {isEmbed ? (
             <iframe
               src={getEmbedUrl()}

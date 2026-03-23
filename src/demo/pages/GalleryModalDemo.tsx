@@ -1,4 +1,5 @@
-import { useModal, GalleryModal } from '../../index';
+import { useState } from 'react';
+import { useModal, GalleryModal, type ModalRadius } from '../../index';
 import { CodeBlock } from '../components/CodeBlock';
 
 const codeExample = `import { useModal, GalleryModal } from 'modalize';
@@ -32,6 +33,7 @@ const demoImages = [
 
 export function GalleryModalDemo() {
   const { isOpen, open, close } = useModal();
+  const [radius, setRadius] = useState<ModalRadius>('lg');
 
   return (
     <div className="space-y-8">
@@ -43,16 +45,32 @@ export function GalleryModalDemo() {
       </section>
 
       <section className="card bg-base-200/50 p-12 border border-base-300 items-center justify-center">
-        <div className="flex flex-col items-center gap-6">
-          <button className="btn btn-primary btn-md px-8 shadow-lg shadow-primary/20" onClick={open}>
-            Open Image Gallery
-          </button>
+        <div className="flex flex-col items-center gap-6 w-full">
+          <div className="flex flex-wrap items-center justify-center gap-4 w-full">
+            <select 
+              className="select select-bordered select-md bg-base-100 w-48" 
+              value={radius} 
+              onChange={e => setRadius(e.target.value as ModalRadius)}
+              aria-label="Gallery radius selector"
+            >
+              <option value="none">Radius: None</option>
+              <option value="sm">Radius: SM</option>
+              <option value="md">Radius: MD</option>
+              <option value="lg">Radius: LG (Default)</option>
+              <option value="xl">Radius: XL</option>
+              <option value="2xl">Radius: 2XL</option>
+              <option value="full">Radius: Full</option>
+            </select>
+            <button className="btn btn-primary btn-md px-8 shadow-lg shadow-primary/20" onClick={open}>
+              Open Image Gallery
+            </button>
+          </div>
           <p className="text-[12px] font-medium text-base-content/40 tracking-tight uppercase">
-            Supports loop, thumbnails, and keyboard (Left/Right/ESC)
+            Supports loop, thumbnails, keyboard, and custom radii
           </p>
         </div>
 
-        <GalleryModal isOpen={isOpen} onClose={close} images={demoImages} loop showThumbnails />
+        <GalleryModal isOpen={isOpen} onClose={close} images={demoImages} loop showThumbnails radius={radius} />
       </section>
 
       <section className="space-y-4">

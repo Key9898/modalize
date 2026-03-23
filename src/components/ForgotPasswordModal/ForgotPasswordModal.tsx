@@ -15,6 +15,7 @@ export function ForgotPasswordModal({
   loading = false,
   error,
   successMessage,
+  radius,
 }: ForgotPasswordModalProps) {
   const [email, setEmail] = useState('');
 
@@ -24,14 +25,14 @@ export function ForgotPasswordModal({
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} size="sm">
+    <Modal isOpen={isOpen} onClose={onClose} size="sm" radius={radius}>
       <Modal.Header>{title}</Modal.Header>
       <Modal.Body>
         {successMessage ? (
-          <div className="flex flex-col items-center text-center py-4">
-            <CheckCircle className="h-12 w-12 text-success mb-4" />
-            <h3 className="text-lg font-semibold mb-2">Check your email</h3>
-            <p className="text-base-content/70 text-sm">{successMessage}</p>
+          <div className="flex flex-col items-center text-center py-12 px-2">
+            <CheckCircle className="h-16 w-16 text-success mb-6" />
+            <h3 className="text-xl font-bold mb-3 tracking-tight">Check your email</h3>
+            <p className="text-base-content/60 leading-relaxed text-sm">{successMessage}</p>
           </div>
         ) : (
           <form onSubmit={handleSubmit} className="flex flex-col gap-4">

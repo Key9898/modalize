@@ -4,6 +4,33 @@ All notable changes to the Modalize project will be documented in this file. Thi
 
 ---
 
+## [2026-03-23] - Advanced Radius System & Core Quality Pass
+
+### Added
+- **Radius Inheritance System:** Implemented a CSS-variable based inheritance system (`--modalize-radius`). All internal elements like `.input`, `.btn`, `.alert`, and `.card` now automatically inherit the parent modal's radius, ensuring a cohesive look (Rule 12).
+- **Expanded Radius Variants:** Added `2xl` and `full` variants to the `ModalRadius` type and `global.css`.
+- **Specialized Container Support:** 
+  - **`Drawer`:** Added `radius` prop with smart logic (only rounds the "opening" corners, keeping edge corners flush).
+  - **`BottomSheet`:** Added `radius` prop (only rounds top corners).
+  - **`LoadingModal`:** Added full radius customization support.
+- **Interactive Demos:** Added Radius Selectors to `AlertModal`, `ConfirmModal`, `LoginModal`, `GalleryModal`, `EmptyStateModal`, `Drawer`, and `BottomSheet` demo pages for real-time testing.
+- **Utility Classes:** Added `.rounded-modalize` and `.rounded-modalize-sm` to replace all inline styles across the library (Rule 12 compliance).
+
+### Fixed
+- **Rule 12 (No Inline CSS):** Systematically removed all `style={{ borderRadius: ... }}` occurrences in favor of CSS utility classes.
+- **Rule 21 (Strict Types):** Eliminated all `as any` type assertions in demo pages; everything is now strongly typed with `ModalRadius` and proper union types.
+- **Rule 23 (React Imports):** Removed all unused `import React` statements and switched to `import type { ReactNode }` for cleaner, modern React 18+ bundles.
+- **Syntax Error:** Resolved a critical JSX syntax error in `GalleryModal.tsx` thumbnails introduced during the styling refactor.
+
+### Checks
+- `npm run lint` ✅ Passed (Zero errors)
+- `npx tsc --noEmit` ✅ Passed (Zero errors)
+- `npm run build` ✅ Passed (Production build successful)
+
+---
+
+## [2026-03-23] - Code Quality, Syntax Highlighting & Rules Update
+
 ## [2026-03-23] - Code Quality, Syntax Highlighting & Rules Update
 
 ### Added
@@ -13,11 +40,12 @@ All notable changes to the Modalize project will be documented in this file. Thi
 - **`author` field:** `package.json` author set to "Wunna Aung".
 
 ### Fixed
+- **Modal Centering:** Switched `modalize-backdrop` from Flexbox to CSS Grid (`place-items: center`) to ensure mathematically perfect centering across all browsers and screen sizes.
+- **Mobile Alignment:** Removed the mobile-specific `flex-end` override that was forcing modals to the bottom of the screen; all standard modals are now centered on mobile by default.
+- **Animation Smoothness:** Removed `translateY` offsets from `modal-scale-in/out` animations to prevent visual shifting/bouncing during the opening and closing transitions.
+- **AlertModal UI Refinement:** Increased vertical padding to `py-8`, added a soft background to icons, and refined typography for a more premium, balanced look.
+- **ConfirmModal UI Refinement:** Re-aligned icon and text elements, added descriptive sub-text support, and standardized button sizes for better internal symmetry.
 - **Overview.tsx:** Quick Start now uses `CodeBlock` — has syntax color + copy button.
-- **Installation.tsx:** All code blocks use `CodeBlock`. Removed duplicate copy logic. Fixed package name (`modalize-react` → `modalize`).
-- **TypeScript build errors:** Fixed `e.target.value` type cast in `AlertModalDemo`, `ConfirmModalDemo`, `DrawerDemo`, `ModalDemo`. `npm run build` passes clean.
-- **Lint (26 errors → 0):** Fixed all pre-existing ESLint errors across demo pages, stories, GalleryModal, Modal, Navbar, Appearance. `npm run lint` passes clean.
-- **TypeScript:** `npx tsc --noEmit` passes with zero errors.
 
 ### Updated
 - **`PROJECT_RULES.md`:** Updated to reflect all standards established this session:

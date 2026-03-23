@@ -59,6 +59,7 @@ function ModalRoot({
   isOpen,
   onClose,
   size = 'md',
+  radius = 'lg',
   closeOnEsc = true,
   closeOnBackdrop = true,
   animation = true,
@@ -162,7 +163,7 @@ function ModalRoot({
         {/* Modal Panel */}
         <div
           ref={containerRef}
-          className={`modalize-modal modalize-modal--${size} ${isClosing ? 'modalize-modal--closing' : ''} ${!animation ? 'modalize-no-animation' : ''} ${zIndex ? `z-[${zIndex + 1}]` : zIndexModalClass} ${className}`}
+          className={`modalize-modal modalize-modal--${size} modalize-modal--radius-${radius} ${isClosing ? 'modalize-modal--closing' : ''} ${!animation ? 'modalize-no-animation' : ''} ${zIndex ? `z-[${zIndex + 1}]` : zIndexModalClass} ${className}`}
           onClick={e => e.stopPropagation()}
           {...a11yProps}
         >

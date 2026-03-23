@@ -13,6 +13,7 @@ export function BottomSheet({
   title,
   showHandle = true,
   closeOnBackdrop = true,
+  radius,
   children,
 }: BottomSheetProps) {
   useScrollLock(isOpen);
@@ -32,6 +33,8 @@ export function BottomSheet({
 
   if (!isOpen) return null;
 
+  const radiusClass = radius ? `modalize-bottomsheet--radius-${radius}` : '';
+
   return (
     <Portal>
       {/* Backdrop */}
@@ -43,7 +46,7 @@ export function BottomSheet({
 
       {/* Bottom Sheet */}
       <div
-        className="modalize-bottomsheet z-[1001]"
+        className={`modalize-bottomsheet ${radiusClass} z-[1001]`}
         role="dialog"
         aria-modal="true"
       >

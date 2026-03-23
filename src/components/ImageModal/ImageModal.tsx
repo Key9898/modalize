@@ -14,6 +14,7 @@ export function ImageModal({
   title,
   zoomable = true,
   downloadable = false,
+  radius,
 }: ImageModalProps) {
   const [isZoomed, setIsZoomed] = useState(false);
 
@@ -25,13 +26,13 @@ export function ImageModal({
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} size="lg" className="!bg-transparent !shadow-none">
-      <div className="relative flex flex-col items-center">
+    <Modal isOpen={isOpen} onClose={onClose} size="lg" radius={radius} className="!bg-transparent !shadow-none">
+      <div className="relative flex flex-col items-center p-4">
         {/* Top bar */}
-        <div className="absolute top-2 right-2 z-10 flex gap-2">
+        <div className="absolute top-4 right-4 z-10 flex gap-2">
           {downloadable && (
             <button
-              className="btn btn-circle btn-sm btn-ghost bg-base-100/80"
+              className="btn btn-circle btn-sm btn-ghost bg-base-100/80 shadow-md backdrop-blur-sm"
               onClick={handleDownload}
               aria-label="Download image"
             >
@@ -39,7 +40,7 @@ export function ImageModal({
             </button>
           )}
           <button
-            className="btn btn-circle btn-sm btn-ghost bg-base-100/80"
+            className="btn btn-circle btn-sm btn-ghost bg-base-100/80 shadow-md backdrop-blur-sm"
             onClick={onClose}
             aria-label="Close"
           >
@@ -51,7 +52,7 @@ export function ImageModal({
         <img
           src={src}
           alt={alt}
-          className={`max-w-full max-h-[75vh] object-contain rounded-lg transition-transform duration-200 ${
+          className={`max-w-full max-h-[80vh] object-contain shadow-2xl transition-transform duration-200 rounded-modalize ${
             zoomable ? 'cursor-zoom-in' : ''
           } ${isZoomed ? '!cursor-zoom-out scale-150' : ''}`}
           onClick={() => zoomable && setIsZoomed(!isZoomed)}

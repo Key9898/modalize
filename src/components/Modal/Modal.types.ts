@@ -4,5 +4,6 @@ export type {
   ModalBodyProps,
   ModalFooterProps,
   ModalSize,
+  ModalRadius,
   ModalContextValue,
 } from '../../types';

@@ -19,6 +19,7 @@ export function SignupModal({
   termsUrl = '#',
   privacyUrl = '#',
   fields = ['name', 'email', 'password', 'confirmPassword'],
+  radius,
 }: SignupModalProps) {
   const [formData, setFormData] = useState<SignupData>({
     email: '',
@@ -42,7 +43,7 @@ export function SignupModal({
     formData.confirmPassword === '';
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} size="sm">
+    <Modal isOpen={isOpen} onClose={onClose} size="sm" radius={radius}>
       <Modal.Header>{title}</Modal.Header>
       <Modal.Body>
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">

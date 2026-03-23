@@ -12,13 +12,14 @@ export function EmptyStateModal({
   description,
   icon,
   action,
+  radius,
 }: EmptyStateModalProps) {
   const defaultIcon = (
     <Inbox className="h-16 w-16 text-base-content/30" strokeWidth={1} />
   );
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} size="sm">
+    <Modal isOpen={isOpen} onClose={onClose} size="sm" radius={radius}>
       <Modal.Body>
         <div className="flex flex-col items-center text-center py-8">
           <div className="mb-4">{icon ?? defaultIcon}</div>

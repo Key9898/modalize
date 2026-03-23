@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useModal, ConfirmModal } from '../../index';
+import { useModal, ConfirmModal, type ModalRadius } from '../../index';
 import { CodeBlock } from '../components/CodeBlock';
 
 const codeExample = `import { useModal, ConfirmModal } from 'modalize';
@@ -33,6 +33,7 @@ function Example() {
 export function ConfirmModalDemo() {
   const { isOpen, open, close } = useModal();
   const [variant, setVariant] = useState<'danger' | 'warning' | 'info' | 'success'>('danger');
+  const [radius, setRadius] = useState<'none' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | 'full'>('lg');
   const [loading, setLoading] = useState(false);
 
   const handleConfirm = () => {
@@ -54,7 +55,7 @@ export function ConfirmModalDemo() {
 
       <section className="card bg-base-200/50 p-12 border border-base-300 items-center justify-center">
         <div className="flex flex-col items-center gap-6">
-          <div className="flex items-center gap-4">
+          <div className="flex flex-wrap items-center justify-center gap-4">
             <select 
               className="select select-bordered select-md bg-base-100 w-48" 
               value={variant} 
@@ -65,6 +66,20 @@ export function ConfirmModalDemo() {
               <option value="warning">Warning</option>
               <option value="info">Info</option>
               <option value="success">Success</option>
+            </select>
+            <select 
+              className="select select-bordered select-md bg-base-100 w-48" 
+              value={radius} 
+              onChange={e => setRadius(e.target.value as ModalRadius)}
+              aria-label="Confirm modal radius selector"
+            >
+              <option value="none">Radius: None</option>
+              <option value="sm">Radius: SM</option>
+              <option value="md">Radius: MD</option>
+              <option value="lg">Radius: LG (Default)</option>
+              <option value="xl">Radius: XL</option>
+              <option value="2xl">Radius: 2XL</option>
+              <option value="full">Radius: Full</option>
             </select>
             <button 
               className={`btn btn-md w-48 shadow-lg ${
@@ -79,7 +94,7 @@ export function ConfirmModalDemo() {
             </button>
           </div>
           <p className="text-[12px] font-medium text-base-content/40 tracking-tight uppercase">
-            Click to see variants and loading state behaviors
+            Click to see variants, radius overrides and loading states
           </p>
         </div>
 
@@ -91,6 +106,7 @@ export function ConfirmModalDemo() {
           message="Are you sure you want to proceed with this operation? This might have consequences for the system state."
           confirmText={variant === 'danger' ? 'Yes, delete it' : 'Confirm'}
           variant={variant}
+          radius={radius}
           loading={loading}
           closeOnConfirm={false} // Manually managing close after loading
         />

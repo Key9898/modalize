@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useModal, LoginModal } from '../../index';
+import { useModal, LoginModal, type ModalRadius } from '../../index';
 import { CodeBlock } from '../components/CodeBlock';
 
 const codeExample = `import { useModal, LoginModal } from 'modalize';
@@ -31,6 +31,7 @@ function Example() {
 export function LoginModalDemo() {
   const { isOpen, open, close } = useModal();
   const [loading, setLoading] = useState(false);
+  const [radius, setRadius] = useState<ModalRadius>('lg');
 
   const handleSubmit = (data: { email: string; password: string }) => {
     setLoading(true);
@@ -51,12 +52,28 @@ export function LoginModalDemo() {
       </section>
 
       <section className="card bg-base-200/50 p-12 border border-base-300 items-center justify-center">
-        <div className="flex flex-col items-center gap-6">
-          <button className="btn btn-primary btn-md px-8 shadow-lg shadow-primary/20" onClick={open}>
-            Open Login Form
-          </button>
+        <div className="flex flex-col items-center gap-6 w-full">
+          <div className="flex flex-wrap items-center justify-center gap-4 w-full">
+            <select 
+              className="select select-bordered select-md bg-base-100 w-48" 
+              value={radius} 
+              onChange={e => setRadius(e.target.value as ModalRadius)}
+              aria-label="Login modal radius selector"
+            >
+              <option value="none">Radius: None</option>
+              <option value="sm">Radius: SM</option>
+              <option value="md">Radius: MD</option>
+              <option value="lg">Radius: LG (Default)</option>
+              <option value="xl">Radius: XL</option>
+              <option value="2xl">Radius: 2XL</option>
+              <option value="full">Radius: Full</option>
+            </select>
+            <button className="btn btn-primary btn-md px-8 shadow-lg shadow-primary/20" onClick={open}>
+              Open Login Form
+            </button>
+          </div>
           <p className="text-[12px] font-medium text-base-content/40 tracking-tight uppercase">
-            Click to see loading states and validation
+            Click to see loading states, radius inheritance and validation
           </p>
         </div>
 
@@ -65,6 +82,7 @@ export function LoginModalDemo() {
           onClose={close}
           onSubmit={handleSubmit}
           loading={loading}
+          radius={radius}
           socialLogins={[{ provider: 'google', onClick: () => {} }, { provider: 'github', onClick: () => {} }]}
           onForgotPassword={() => alert('Forgot password clicked')}
           onSignup={() => alert('Signup clicked')}

@@ -7,6 +7,13 @@ const meta: Meta<typeof Modal> = {
   component: Modal,
   parameters: { layout: 'centered' },
   tags: ['autodocs'],
+  argTypes: {
+    radius: {
+      control: 'select',
+      options: ['none', 'sm', 'md', 'lg', 'xl', 'full'],
+      description: 'Border radius of the modal panel',
+    },
+  },
 };
 
 export default meta;
@@ -40,4 +47,24 @@ export const Small: Story = {
 export const Large: Story = {
   ...Default,
   args: { ...Default.args, size: 'lg' },
+};
+
+export const RadiusNone: Story = {
+  ...Default,
+  args: { ...Default.args, radius: 'none' },
+};
+
+export const RadiusSm: Story = {
+  ...Default,
+  args: { ...Default.args, radius: 'sm' },
+};
+
+export const RadiusXl: Story = {
+  ...Default,
+  args: { ...Default.args, radius: 'xl' },
+};
+
+export const RadiusFull: Story = {
+  ...Default,
+  args: { ...Default.args, radius: 'full' },
 };

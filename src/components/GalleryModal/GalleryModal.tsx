@@ -17,6 +17,7 @@ export function GalleryModal({
   showNavigation = true,
   loop = true,
   onImageChange,
+  radius,
 }: GalleryModalProps) {
   const [currentIndex, setCurrentIndex] = useState(initialIndex);
 
@@ -73,11 +74,11 @@ export function GalleryModal({
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} size="xl" className="!bg-transparent !shadow-none">
+    <Modal isOpen={isOpen} onClose={onClose} size="xl" radius={radius} className="!bg-transparent !shadow-none">
       <div className="relative select-none">
         {/* Close button */}
         <button
-          className="absolute top-2 right-2 z-10 btn btn-circle btn-sm btn-ghost bg-base-100/80"
+          className="absolute top-4 right-4 z-10 btn btn-circle btn-sm btn-ghost bg-base-100/80 shadow-md backdrop-blur-sm"
           onClick={onClose}
           aria-label="Close gallery"
         >
@@ -85,27 +86,27 @@ export function GalleryModal({
         </button>
 
         {/* Counter */}
-        <div className="absolute top-2 left-2 z-10 badge badge-neutral">
+        <div className="absolute top-4 left-4 z-10 badge badge-neutral shadow-md">
           {currentIndex + 1} / {images.length}
         </div>
 
         {/* Main Image with Swipe Support */}
         <motion.div
           key={currentIndex}
-          className="flex items-center justify-center min-h-[300px] touch-pan-y"
+          className="flex items-center justify-center min-h-[400px] touch-pan-y py-4"
           drag="x"
           dragConstraints={{ left: 0, right: 0 }}
           dragElastic={0.2}
           onDragEnd={handleDragEnd}
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-          exit={{ opacity: 0, x: -20 }}
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 0.95 }}
           transition={{ duration: 0.2 }}
         >
           <img
             src={currentImage.src}
             alt={currentImage.alt || ''}
-            className="max-w-full max-h-[60vh] object-contain rounded-lg pointer-events-none"
+            className="max-w-full max-h-[80vh] object-contain shadow-2xl pointer-events-none rounded-modalize"
           />
         </motion.div>
 
@@ -144,9 +145,9 @@ export function GalleryModal({
             {images.map((image, index) => (
               <button
                 key={index}
-                className={`w-14 h-14 rounded-md overflow-hidden border-2 transition-all flex-shrink-0 ${
+                className={`w-16 h-16 overflow-hidden border-2 transition-all flex-shrink-0 rounded-modalize-sm ${
                   index === currentIndex
-                    ? 'border-primary opacity-100'
+                    ? 'border-primary opacity-100 ring-4 ring-primary/20'
                     : 'border-transparent opacity-50 hover:opacity-80'
                 }`}
                 onClick={() => goTo(index)}

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useModal } from '../../hooks/useModal';
 import { Modal } from '../../components/Modal/Modal';
+import type { ModalRadius } from '../../types';
 import { CodeBlock } from '../components/CodeBlock';
 
 const codeExample = `import { useModal, Modal } from 'modalize';
@@ -12,7 +13,7 @@ function Example() {
     <>
       <button onClick={open}>Open Modal</button>
 
-      <Modal isOpen={isOpen} onClose={close} size="md">
+      <Modal isOpen={isOpen} onClose={close} size="md" radius="lg">
         <Modal.Header>Welcome to Modalize</Modal.Header>
         <Modal.Body>
           This is a base modal using compound components.
@@ -30,6 +31,7 @@ function Example() {
 export function ModalDemo() {
   const { isOpen, open, close } = useModal();
   const [size, setSize] = useState<'sm' | 'md' | 'lg' | 'xl' | 'full'>('md');
+  const [radius, setRadius] = useState<ModalRadius>('lg');
 
   return (
     <div className="space-y-8">
@@ -43,9 +45,9 @@ export function ModalDemo() {
       <section className="card bg-base-200/50 p-12 border border-base-300 items-center justify-center">
         <div className="flex flex-col items-center gap-6 w-full">
           <div className="flex flex-wrap items-center justify-center gap-4 w-full">
-            <select 
-              className="select select-bordered select-md bg-base-100 w-48" 
-              value={size} 
+            <select
+              className="select select-bordered select-md bg-base-100 w-48"
+              value={size}
               onChange={e => setSize(e.target.value as 'sm' | 'md' | 'lg' | 'xl' | 'full')}
               aria-label="Modal size selector"
             >
@@ -54,6 +56,20 @@ export function ModalDemo() {
               <option value="lg">Large (lg)</option>
               <option value="xl">XL (xl)</option>
               <option value="full">Full Screen (full)</option>
+            </select>
+            <select
+              className="select select-bordered select-md bg-base-100 w-48"
+              value={radius}
+              onChange={e => setRadius(e.target.value as ModalRadius)}
+              aria-label="Modal radius selector"
+            >
+              <option value="none">Radius: None</option>
+              <option value="sm">Radius: SM</option>
+              <option value="md">Radius: MD</option>
+              <option value="lg">Radius: LG</option>
+              <option value="xl">Radius: XL</option>
+              <option value="2xl">Radius: 2XL</option>
+              <option value="full">Radius: Full</option>
             </select>
             <button className="btn btn-primary btn-md w-48 shadow-lg shadow-primary/20" onClick={open}>
               Live Preview
@@ -64,7 +80,7 @@ export function ModalDemo() {
           </p>
         </div>
 
-        <Modal isOpen={isOpen} onClose={close} size={size}>
+        <Modal isOpen={isOpen} onClose={close} size={size} radius={radius}>
           <Modal.Header>Base Modal Example</Modal.Header>
           <Modal.Body>
             <div className="space-y-4">
@@ -92,7 +108,7 @@ export function ModalDemo() {
           <div className="w-1 h-6 bg-primary rounded-full"></div>
           <h3 className="text-xl font-bold">Usage</h3>
         </div>
-        <CodeBlock code={codeExample} />
+        <CodeBlock code={codeExample} language="tsx" filename="App.tsx" />
       </section>
     </div>
   );

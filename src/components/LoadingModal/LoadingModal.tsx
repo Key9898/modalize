@@ -10,6 +10,7 @@ export function LoadingModal({
   showProgress = false,
   progress = 0,
   spinner = 'default',
+  radius,
 }: LoadingModalProps) {
   const spinnerClass = {
     default: 'loading-spinner',
@@ -22,6 +23,7 @@ export function LoadingModal({
       isOpen={isOpen}
       onClose={() => {}}
       size="sm"
+      radius={radius}
       closeOnEsc={false}
       closeOnBackdrop={false}
     >
