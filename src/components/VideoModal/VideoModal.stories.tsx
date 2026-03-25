@@ -17,12 +17,10 @@ export const Default: Story = {
     const { isOpen, open, close } = useModal(true);
     return (
       <>
-        <button className="btn" onClick={open}>Open Video</button>
-        <VideoModal 
-           {...args} 
-           isOpen={isOpen} 
-           onClose={close} 
-        />
+        <button className="btn" onClick={open}>
+          Open Video
+        </button>
+        <VideoModal {...args} isOpen={isOpen} onClose={close} />
       </>
     );
   },

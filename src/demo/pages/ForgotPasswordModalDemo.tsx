@@ -31,7 +31,7 @@ export function ForgotPasswordModalDemo() {
   const { isOpen, open, close } = useModal();
 
   const handleSubmit = async (_email: string) => {
-    return new Promise<void>((resolve) => {
+    return new Promise<void>(resolve => {
       setTimeout(() => {
         resolve();
       }, 1500);
@@ -41,13 +41,16 @@ export function ForgotPasswordModalDemo() {
   return (
     <div className="space-y-8">
       <section className="space-y-2">
-        <h2 className="text-3xl font-bold font-display">Forgot Password Modal</h2>
+        <h2 className="text-3xl font-bold font-display">
+          Forgot Password Modal
+        </h2>
         <p className="text-base-content/60 leading-relaxed">
-          A pre-built modal for handling password recovery flows with built-in validation and success states.
+          A pre-built modal for handling password recovery flows with built-in
+          validation and success states.
         </p>
       </section>
 
-      <section className="card bg-base-200/50 p-12 border border-base-300 items-center justify-center">
+      <section className="card bg-base-200/50 p-6 md:p-12 border border-base-300 items-center justify-center relative overflow-hidden">
         <div className="flex flex-col items-center gap-6">
           <div className="p-4 bg-primary/10 rounded-full">
             <Mail className="w-8 h-8 text-primary" />
@@ -55,10 +58,14 @@ export function ForgotPasswordModalDemo() {
           <div className="text-center">
             <h3 className="text-xl font-bold mb-2">Account Recovery</h3>
             <p className="text-base-content/60 text-sm max-w-sm mx-auto">
-              Test the recovery flow. Submitting will trigger a mock 1.5s API simulation.
+              Test the recovery flow. Submitting will trigger a mock 1.5s API
+              simulation.
             </p>
           </div>
-          <button className="btn btn-primary btn-md px-8 shadow-lg shadow-primary/20" onClick={open}>
+          <button
+            className="btn btn-primary btn-md px-8 shadow-lg shadow-primary/20"
+            onClick={open}
+          >
             Reset Password
           </button>
           <p className="text-[12px] font-medium text-base-content/40 tracking-tight uppercase">
@@ -66,9 +73,9 @@ export function ForgotPasswordModalDemo() {
           </p>
         </div>
 
-        <ForgotPasswordModal 
-          isOpen={isOpen} 
-          onClose={close} 
+        <ForgotPasswordModal
+          isOpen={isOpen}
+          onClose={close}
           onSubmit={handleSubmit}
           successMessage="If an account exists with this email, you will receive a password reset link shortly."
         />

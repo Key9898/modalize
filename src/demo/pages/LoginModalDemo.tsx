@@ -47,16 +47,17 @@ export function LoginModalDemo() {
       <section className="space-y-2">
         <h2 className="text-3xl font-bold font-display">Login Modal</h2>
         <p className="text-base-content/60 leading-relaxed">
-          Pre-built authentication modal with email/password and social login supports.
+          Pre-built authentication modal with email/password and social login
+          supports.
         </p>
       </section>
 
-      <section className="card bg-base-200/50 p-12 border border-base-300 items-center justify-center">
+      <section className="card bg-base-200/50 p-6 md:p-12 border border-base-300 items-center justify-center relative overflow-hidden">
         <div className="flex flex-col items-center gap-6 w-full">
           <div className="flex flex-wrap items-center justify-center gap-4 w-full">
-            <select 
-              className="select select-bordered select-md bg-base-100 w-48" 
-              value={radius} 
+            <select
+              className="select select-bordered select-md bg-base-100 w-48"
+              value={radius}
               onChange={e => setRadius(e.target.value as ModalRadius)}
               aria-label="Login modal radius selector"
             >
@@ -68,7 +69,10 @@ export function LoginModalDemo() {
               <option value="2xl">Radius: 2XL</option>
               <option value="full">Radius: Full</option>
             </select>
-            <button className="btn btn-primary btn-md px-8 shadow-lg shadow-primary/20" onClick={open}>
+            <button
+              className="btn btn-primary btn-md px-8 shadow-lg shadow-primary/20"
+              onClick={open}
+            >
               Open Login Form
             </button>
           </div>
@@ -83,7 +87,10 @@ export function LoginModalDemo() {
           onSubmit={handleSubmit}
           loading={loading}
           radius={radius}
-          socialLogins={[{ provider: 'google', onClick: () => {} }, { provider: 'github', onClick: () => {} }]}
+          socialLogins={[
+            { provider: 'google', onClick: () => {} },
+            { provider: 'github', onClick: () => {} },
+          ]}
           onForgotPassword={() => alert('Forgot password clicked')}
           onSignup={() => alert('Signup clicked')}
         />

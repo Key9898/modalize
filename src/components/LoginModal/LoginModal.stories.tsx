@@ -17,12 +17,10 @@ export const Default: Story = {
     const { isOpen, open, close } = useModal(true);
     return (
       <>
-        <button className="btn" onClick={open}>Open Login</button>
-        <LoginModal 
-           {...args} 
-           isOpen={isOpen} 
-           onClose={close} 
-        />
+        <button className="btn" onClick={open}>
+          Open Login
+        </button>
+        <LoginModal {...args} isOpen={isOpen} onClose={close} />
       </>
     );
   },
@@ -30,10 +28,10 @@ export const Default: Story = {
     title: 'Welcome Back',
     showRememberMe: true,
     socialLogins: [
-      { provider: 'google', onClick: () => alert('Google login clicked') }
+      { provider: 'google', onClick: () => alert('Google login clicked') },
     ],
     onSubmit: data => alert(`Login submitted: ${data.email}`),
     onForgotPassword: () => alert('Forgot password clicked'),
-    onSignup: () => alert('Signup clicked')
+    onSignup: () => alert('Signup clicked'),
   },
 };

@@ -17,20 +17,30 @@ export const Default: Story = {
     const { isOpen, open, close } = useModal(true);
     return (
       <>
-        <button className="btn" onClick={open}>Open Form</button>
-        <FormModal 
-           {...args} 
-           isOpen={isOpen} 
-           onClose={close} 
-        >
+        <button className="btn" onClick={open}>
+          Open Form
+        </button>
+        <FormModal {...args} isOpen={isOpen} onClose={close}>
           <div className="space-y-4">
             <div className="form-control">
-              <label className="label"><span className="label-text">Full Name</span></label>
-              <input type="text" className="input input-bordered w-full" placeholder="John Doe" />
+              <label className="label">
+                <span className="label-text">Full Name</span>
+              </label>
+              <input
+                type="text"
+                className="input input-bordered w-full"
+                placeholder="John Doe"
+              />
             </div>
             <div className="form-control">
-              <label className="label"><span className="label-text">Email Address</span></label>
-              <input type="email" className="input input-bordered w-full" placeholder="john@example.com" />
+              <label className="label">
+                <span className="label-text">Email Address</span>
+              </label>
+              <input
+                type="email"
+                className="input input-bordered w-full"
+                placeholder="john@example.com"
+              />
             </div>
           </div>
         </FormModal>

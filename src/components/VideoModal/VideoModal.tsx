@@ -41,29 +41,32 @@ export function VideoModal({
     <Modal isOpen={isOpen} onClose={onClose} size="lg" radius={radius}>
       {title && <Modal.Header>{title}</Modal.Header>}
       <Modal.Body scrollable={false}>
-        <div 
-          className="relative w-full aspect-video overflow-hidden bg-black shadow-lg my-2 rounded-modalize"
-        >
-          {isEmbed ? (
-            <iframe
-              src={getEmbedUrl()}
-              className="absolute inset-0 w-full h-full"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-              title={title || 'Video'}
-            />
-          ) : (
-            <video
-              className="w-full h-full"
-              controls={controls}
-              autoPlay={autoplay}
-              loop={loop}
-              muted={muted}
-            >
-              <source src={src} type={type} />
-              Your browser does not support the video tag.
-            </video>
-          )}
+        <div className="py-2">
+          <div className="relative w-full aspect-video overflow-hidden bg-black shadow-2xl rounded-modalize border border-white/5 group">
+            {/* Subtle glow effect */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent pointer-events-none z-10" />
+
+            {isEmbed ? (
+              <iframe
+                src={getEmbedUrl()}
+                className="absolute inset-0 w-full h-full opacity-0 animate-in fade-in duration-700 fill-mode-forwards"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                title={title || 'Video'}
+              />
+            ) : (
+              <video
+                className="w-full h-full opacity-0 animate-in fade-in duration-700 fill-mode-forwards"
+                controls={controls}
+                autoPlay={autoplay}
+                loop={loop}
+                muted={muted}
+              >
+                <source src={src} type={type} />
+                Your browser does not support the video tag.
+              </video>
+            )}
+          </div>
         </div>
       </Modal.Body>
     </Modal>

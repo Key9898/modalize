@@ -23,7 +23,9 @@ function Example() {
 
 export function AlertModalDemo() {
   const { isOpen, open, close } = useModal();
-  const [variant, setVariant] = useState<'info' | 'success' | 'warning' | 'error'>('info');
+  const [variant, setVariant] = useState<
+    'info' | 'success' | 'warning' | 'error'
+  >('info');
   const [radius, setRadius] = useState<ModalRadius>('lg');
 
   return (
@@ -35,13 +37,17 @@ export function AlertModalDemo() {
         </p>
       </section>
 
-      <section className="card bg-base-200/50 p-12 border border-base-300 items-center justify-center">
+      <section className="card bg-base-200/50 p-6 md:p-12 border border-base-300 items-center justify-center relative overflow-hidden">
         <div className="flex flex-col items-center gap-6">
           <div className="flex flex-wrap items-center justify-center gap-4">
-            <select 
-              className="select select-bordered select-md bg-base-100 w-48" 
-              value={variant} 
-              onChange={e => setVariant(e.target.value as 'info' | 'success' | 'warning' | 'error')}
+            <select
+              className="select select-bordered select-md bg-base-100 w-48"
+              value={variant}
+              onChange={e =>
+                setVariant(
+                  e.target.value as 'info' | 'success' | 'warning' | 'error'
+                )
+              }
               aria-label="Alert modal variant selector"
             >
               <option value="info">Info</option>
@@ -49,9 +55,9 @@ export function AlertModalDemo() {
               <option value="warning">Warning</option>
               <option value="error">Error</option>
             </select>
-            <select 
-              className="select select-bordered select-md bg-base-100 w-48" 
-              value={radius} 
+            <select
+              className="select select-bordered select-md bg-base-100 w-48"
+              value={radius}
               onChange={e => setRadius(e.target.value as ModalRadius)}
               aria-label="Alert modal radius selector"
             >
@@ -63,7 +69,10 @@ export function AlertModalDemo() {
               <option value="2xl">Radius: 2XL</option>
               <option value="full">Radius: Full</option>
             </select>
-            <button className="btn btn-primary btn-md w-48 shadow-lg shadow-primary/20" onClick={open}>
+            <button
+              className="btn btn-primary btn-md w-48 shadow-lg shadow-primary/20"
+              onClick={open}
+            >
               Show Alert
             </button>
           </div>

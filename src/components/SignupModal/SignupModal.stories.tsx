@@ -17,12 +17,10 @@ export const Default: Story = {
     const { isOpen, open, close } = useModal(true);
     return (
       <>
-        <button className="btn" onClick={open}>Open Signup</button>
-        <SignupModal 
-           {...args} 
-           isOpen={isOpen} 
-           onClose={close} 
-        />
+        <button className="btn" onClick={open}>
+          Open Signup
+        </button>
+        <SignupModal {...args} isOpen={isOpen} onClose={close} />
       </>
     );
   },
@@ -30,6 +28,6 @@ export const Default: Story = {
     title: 'Create an Account',
     showTerms: true,
     onSubmit: data => alert(`Signup submitted: ${data.email}`),
-    onLogin: () => alert('Login clicked')
+    onLogin: () => alert('Login clicked'),
   },
 };

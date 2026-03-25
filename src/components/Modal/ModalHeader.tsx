@@ -16,11 +16,11 @@ export function ModalHeader({
   showCloseButton = true,
   children,
 }: ModalHeaderProps) {
-  const { onClose } = useModalContext();
+  const { onClose, titleId } = useModalContext();
 
   return (
     <div className={`modalize-header ${className}`}>
-      <h2 className="modalize-header__title" id="modalize-title">
+      <h2 className="modalize-header__title" id={titleId}>
         {children}
       </h2>
       {showCloseButton && (

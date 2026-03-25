@@ -2,10 +2,10 @@
 @plugin "daisyui";
 
 @plugin "daisyui/theme" {
-  name: "dim";
+  name: 'dim';
   default: true;
   prefersdark: true;
-  color-scheme: "dark";
+  color-scheme: 'dark';
   --color-base-100: oklch(30.857% 0.023 264.149);
   --color-base-200: oklch(28.036% 0.019 264.182);
   --color-base-300: oklch(26.346% 0.018 262.177);
@@ -35,18 +35,18 @@
 }
 
 @plugin "daisyui/theme" {
-  name: "light";
+  name: 'light';
   prefersdark: false;
-  color-scheme: "light";
+  color-scheme: 'light';
   /* Brand Identity: Light */
   --color-primary: oklch(65% 0.15 264);
   --color-primary-content: oklch(98% 0.01 264);
 }
 
 @plugin "daisyui/theme" {
-  name: "dark";
+  name: 'dark';
   prefersdark: true;
-  color-scheme: "dark";
+  color-scheme: 'dark';
   /* Brand Identity: Dark */
   --color-primary: oklch(75% 0.15 264);
   --color-primary-content: oklch(15% 0.01 264);
@@ -54,130 +54,18 @@
 
 /* ===== Modalize Base Styles ===== */
 
-/* Modal Animations */
-@keyframes modal-fade-in {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes modal-fade-out {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
-  }
-}
-
-@keyframes modal-scale-in {
-  from {
-    opacity: 0;
-    transform: scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-@keyframes modal-scale-out {
-  from {
-    opacity: 1;
-    transform: scale(1);
-  }
-  to {
-    opacity: 0;
-    transform: scale(0.95);
-  }
-}
-
-@keyframes modal-slide-up {
-  from {
-    opacity: 0;
-    transform: translateY(100%);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes modal-slide-down {
-  from {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  to {
-    opacity: 0;
-    transform: translateY(100%);
-  }
-}
-
-@keyframes modal-slide-left {
-  from {
-    transform: translateX(100%);
-  }
-  to {
-    transform: translateX(0);
-  }
-}
-
-@keyframes modal-slide-right {
-  from {
-    transform: translateX(-100%);
-  }
-  to {
-    transform: translateX(0);
-  }
-}
-
-@keyframes backdrop-fade-in {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes backdrop-fade-out {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
-  }
-}
-
-@keyframes spinner-pulse {
-  0%,
-  100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.5;
-  }
-}
+/* ===== Modalize Base Styles ===== */
 
 /* Modal Base Classes */
 .modalize-backdrop {
   position: fixed;
   inset: 0;
-  display: grid;
-  place-items: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background-color: rgba(0, 0, 0, 0.6);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-  animation: backdrop-fade-in 150ms ease-out;
-  padding: 1.5rem;
-}
-
-.modalize-backdrop--closing {
-  animation: backdrop-fade-out 100ms ease-in forwards;
 }
 
 .modalize-modal {
@@ -188,7 +76,6 @@
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
-  animation: modal-scale-in 200ms cubic-bezier(0.16, 1, 0.3, 1);
   max-height: 85vh;
   width: 100%;
   overflow: hidden;
@@ -199,34 +86,51 @@
 /* Radius Variants - Applied to .modalize-modal, .modalize-drawer, or .modalize-bottomsheet */
 .modalize-modal--radius-none,
 .modalize-drawer--radius-none,
-.modalize-bottomsheet--radius-none { border-radius: 0 !important; --modalize-radius: 0; }
+.modalize-bottomsheet--radius-none {
+  border-radius: 0 !important;
+  --modalize-radius: 0;
+}
 
 .modalize-modal--radius-sm,
 .modalize-drawer--radius-sm,
-.modalize-bottomsheet--radius-sm   { --modalize-radius: 0.25rem; }
+.modalize-bottomsheet--radius-sm {
+  --modalize-radius: 0.25rem;
+}
 
 .modalize-modal--radius-md,
 .modalize-drawer--radius-md,
-.modalize-bottomsheet--radius-md   { --modalize-radius: 0.5rem; }
+.modalize-bottomsheet--radius-md {
+  --modalize-radius: 0.5rem;
+}
 
 .modalize-modal--radius-lg,
 .modalize-drawer--radius-lg,
-.modalize-bottomsheet--radius-lg   { --modalize-radius: 0.75rem; }
+.modalize-bottomsheet--radius-lg {
+  --modalize-radius: 0.75rem;
+}
 
 .modalize-modal--radius-xl,
 .modalize-drawer--radius-xl,
-.modalize-bottomsheet--radius-xl   { --modalize-radius: 1rem; }
+.modalize-bottomsheet--radius-xl {
+  --modalize-radius: 1rem;
+}
 
 .modalize-modal--radius-2xl,
 .modalize-drawer--radius-2xl,
-.modalize-bottomsheet--radius-2xl  { --modalize-radius: 1.5rem; }
+.modalize-bottomsheet--radius-2xl {
+  --modalize-radius: 1.5rem;
+}
 
 .modalize-modal--radius-full,
 .modalize-drawer--radius-full,
-.modalize-bottomsheet--radius-full { --modalize-radius: 2rem; }
+.modalize-bottomsheet--radius-full {
+  --modalize-radius: 2rem;
+}
 
 /* Apply variable to the containers */
-.modalize-modal[class*="--radius-"] { border-radius: var(--modalize-radius); }
+.modalize-modal[class*='--radius-'] {
+  border-radius: var(--modalize-radius);
+}
 
 /* Internal Element Inheritance - Automatically syncs internal UI elements to the modal's radius */
 .modalize-modal .input,
@@ -252,13 +156,28 @@
 }
 
 /* Specific Drawer Radius Logic - Only round the corners that are not touching the edge */
-.modalize-drawer--right[class*="--radius-"] { border-top-left-radius: var(--modalize-radius); border-bottom-left-radius: var(--modalize-radius); }
-.modalize-drawer--left[class*="--radius-"]  { border-top-right-radius: var(--modalize-radius); border-bottom-right-radius: var(--modalize-radius); }
-.modalize-drawer--top[class*="--radius-"]   { border-bottom-left-radius: var(--modalize-radius); border-bottom-right-radius: var(--modalize-radius); }
-.modalize-drawer--bottom[class*="--radius-"] { border-top-left-radius: var(--modalize-radius); border-top-right-radius: var(--modalize-radius); }
+.modalize-drawer--right[class*='--radius-'] {
+  border-top-left-radius: var(--modalize-radius);
+  border-bottom-left-radius: var(--modalize-radius);
+}
+.modalize-drawer--left[class*='--radius-'] {
+  border-top-right-radius: var(--modalize-radius);
+  border-bottom-right-radius: var(--modalize-radius);
+}
+.modalize-drawer--top[class*='--radius-'] {
+  border-bottom-left-radius: var(--modalize-radius);
+  border-bottom-right-radius: var(--modalize-radius);
+}
+.modalize-drawer--bottom[class*='--radius-'] {
+  border-top-left-radius: var(--modalize-radius);
+  border-top-right-radius: var(--modalize-radius);
+}
 
 /* Specific BottomSheet Radius Logic - Only round top corners */
-.modalize-bottomsheet[class*="--radius-"] { border-top-left-radius: var(--modalize-radius); border-top-right-radius: var(--modalize-radius); }
+.modalize-bottomsheet[class*='--radius-'] {
+  border-top-left-radius: var(--modalize-radius);
+  border-top-right-radius: var(--modalize-radius);
+}
 
 /* Utility class for children to inherit the modal radius without inline styles (Rule 12) */
 .rounded-modalize {
@@ -312,27 +231,6 @@
     max-height: 90vh;
   }
 
-  .modalize-modal--sm,
-  .modalize-modal--md,
-  .modalize-modal--lg,
-  .modalize-modal--xl {
-    max-width: 90%;
-  }
-
-  .modalize-modal--full {
-    max-width: 100%;
-    width: 100%;
-    height: 100%;
-    max-height: 100vh;
-    border-radius: 0;
-  }
-
-  .modalize-modal {
-    max-height: 90vh;
-  }
-
-  /* Centering override is removed to keep them centered on mobile */
-
   .modalize-modal:not(.modalize-modal--full) {
     animation: modal-scale-in 200ms cubic-bezier(0.16, 1, 0.3, 1);
   }
@@ -377,7 +275,9 @@
   color: var(--color-base-content);
   opacity: 0.5;
   cursor: pointer;
-  transition: opacity 150ms ease, background-color 150ms ease;
+  transition:
+    opacity 150ms ease,
+    background-color 150ms ease;
   flex-shrink: 0;
 }
 
@@ -581,7 +481,11 @@ body.modalize-scroll-locked {
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  background-color: color-mix(in oklch, var(--color-base-content), transparent 100%);
+  background-color: color-mix(
+    in oklch,
+    var(--color-base-content),
+    transparent 100%
+  );
   background-clip: padding-box;
   border: 1px solid transparent;
   border-radius: 10px;
@@ -589,9 +493,34 @@ body.modalize-scroll-locked {
 }
 
 .custom-scrollbar:hover {
-  scrollbar-color: color-mix(in oklch, var(--color-base-content), transparent 80%) transparent;
+  scrollbar-color: color-mix(
+      in oklch,
+      var(--color-base-content),
+      transparent 80%
+    )
+    transparent;
 }
 
 .custom-scrollbar:hover::-webkit-scrollbar-thumb {
-  background-color: color-mix(in oklch, var(--color-base-content), transparent 80%);
+  background-color: color-mix(
+    in oklch,
+    var(--color-base-content),
+    transparent 80%
+  );
+}
+
+/* Reduced Motion Support - WCAG 2.1 Level AAA */
+@media (prefers-reduced-motion: reduce) {
+  .modalize-backdrop,
+  .modalize-modal,
+  .modalize-drawer,
+  .modalize-bottomsheet {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .modalize-backdrop--closing,
+  .modalize-modal--closing {
+    animation: none !important;
+  }
 }

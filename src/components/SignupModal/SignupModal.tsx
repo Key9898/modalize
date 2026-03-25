@@ -149,11 +149,21 @@ export function SignupModal({
               />
               <span className="label-text text-xs">
                 I agree to the{' '}
-                <a href={termsUrl} className="link link-primary" target="_blank" rel="noopener noreferrer">
+                <a
+                  href={termsUrl}
+                  className="link link-primary"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   Terms of Service
                 </a>{' '}
                 and{' '}
-                <a href={privacyUrl} className="link link-primary" target="_blank" rel="noopener noreferrer">
+                <a
+                  href={privacyUrl}
+                  className="link link-primary"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   Privacy Policy
                 </a>
               </span>

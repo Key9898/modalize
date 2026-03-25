@@ -43,8 +43,14 @@ export function GalleryModal({
     [images.length, loop, onImageChange]
   );
 
-  const goNext = useCallback(() => goTo(currentIndex + 1), [currentIndex, goTo]);
-  const goPrev = useCallback(() => goTo(currentIndex - 1), [currentIndex, goTo]);
+  const goNext = useCallback(
+    () => goTo(currentIndex + 1),
+    [currentIndex, goTo]
+  );
+  const goPrev = useCallback(
+    () => goTo(currentIndex - 1),
+    [currentIndex, goTo]
+  );
 
   // Keyboard navigation
   useEffect(() => {
@@ -63,7 +69,10 @@ export function GalleryModal({
 
   const currentImage = images[currentIndex];
 
-  const handleDragEnd = (_e: MouseEvent | TouchEvent | PointerEvent, { offset, velocity }: PanInfo) => {
+  const handleDragEnd = (
+    _e: MouseEvent | TouchEvent | PointerEvent,
+    { offset, velocity }: PanInfo
+  ) => {
     const swipePower = Math.abs(offset.x) * velocity.x;
 
     if (swipePower < -100 || offset.x < -50) {
@@ -74,63 +83,75 @@ export function GalleryModal({
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} size="xl" radius={radius} className="!bg-transparent !shadow-none">
-      <div className="relative select-none">
-        {/* Close button */}
-        <button
-          className="absolute top-4 right-4 z-10 btn btn-circle btn-sm btn-ghost bg-base-100/80 shadow-md backdrop-blur-sm"
-          onClick={onClose}
-          aria-label="Close gallery"
-        >
-          <X className="h-4 w-4" />
-        </button>
+    <Modal
+      isOpen={isOpen}
+      onClose={onClose}
+      size="xl"
+      radius={radius}
+      className="!bg-transparent !shadow-none"
+    >
+      <div className="relative select-none flex flex-col p-6">
+        {/* Top bar container */}
+        <div className="flex items-center justify-between mb-4 px-2">
+          {/* Counter */}
+          <div className="badge badge-neutral shadow-lg border border-white/5 py-3 h-auto backdrop-blur-md">
+            {currentIndex + 1} / {images.length}
+          </div>
 
-        {/* Counter */}
-        <div className="absolute top-4 left-4 z-10 badge badge-neutral shadow-md">
-          {currentIndex + 1} / {images.length}
+          {/* Close button */}
+          <button
+            className="btn btn-circle btn-sm btn-ghost bg-base-100/80 shadow-lg backdrop-blur-md border border-white/10"
+            onClick={onClose}
+            aria-label="Close gallery"
+          >
+            <X className="h-4 w-4" />
+          </button>
         </div>
 
-        {/* Main Image with Swipe Support */}
-        <motion.div
-          key={currentIndex}
-          className="flex items-center justify-center min-h-[400px] touch-pan-y py-4"
-          drag="x"
-          dragConstraints={{ left: 0, right: 0 }}
-          dragElastic={0.2}
-          onDragEnd={handleDragEnd}
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, scale: 0.95 }}
-          transition={{ duration: 0.2 }}
-        >
-          <img
-            src={currentImage.src}
-            alt={currentImage.alt || ''}
-            className="max-w-full max-h-[80vh] object-contain shadow-2xl pointer-events-none rounded-modalize"
-          />
-        </motion.div>
+        {/* Image & Navigation Area Wrapper */}
+        <div className="relative flex-1 flex flex-col items-center justify-center min-h-[300px] md:min-h-[450px]">
+          {/* Navigation Arrows */}
+          {showNavigation && images.length > 1 && (
+            <>
+              <button
+                className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 z-20 btn btn-circle btn-sm md:btn-md btn-ghost bg-base-100/80 shadow-xl backdrop-blur-md border border-white/10"
+                onClick={goPrev}
+                aria-label="Previous image"
+                disabled={!loop && currentIndex === 0}
+              >
+                <ChevronLeft className="h-5 w-5 md:h-6 md:w-6" />
+              </button>
+              <button
+                className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 z-20 btn btn-circle btn-sm md:btn-md btn-ghost bg-base-100/80 shadow-xl backdrop-blur-md border border-white/10"
+                onClick={goNext}
+                aria-label="Next image"
+                disabled={!loop && currentIndex === images.length - 1}
+              >
+                <ChevronRight className="h-5 w-5 md:h-6 md:w-6" />
+              </button>
+            </>
+          )}
 
-        {/* Navigation Arrows */}
-        {showNavigation && images.length > 1 && (
-          <>
-            <button
-              className="absolute left-2 top-1/2 -translate-y-1/2 btn btn-circle btn-sm btn-ghost bg-base-100/80"
-              onClick={goPrev}
-              aria-label="Previous image"
-              disabled={!loop && currentIndex === 0}
-            >
-              <ChevronLeft className="h-5 w-5" />
-            </button>
-            <button
-              className="absolute right-2 top-1/2 -translate-y-1/2 btn btn-circle btn-sm btn-ghost bg-base-100/80"
-              onClick={goNext}
-              aria-label="Next image"
-              disabled={!loop && currentIndex === images.length - 1}
-            >
-              <ChevronRight className="h-5 w-5" />
-            </button>
-          </>
-        )}
+          {/* Main Image with Swipe Support */}
+          <motion.div
+            key={currentIndex}
+            className="flex items-center justify-center w-full h-full touch-pan-y"
+            drag="x"
+            dragConstraints={{ left: 0, right: 0 }}
+            dragElastic={0.2}
+            onDragEnd={handleDragEnd}
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.95 }}
+            transition={{ duration: 0.2 }}
+          >
+            <img
+              src={currentImage.src}
+              alt={currentImage.alt || ''}
+              className="max-w-full max-h-[75vh] object-contain shadow-2xl pointer-events-none rounded-modalize border border-white/5"
+            />
+          </motion.div>
+        </div>
 
         {/* Title */}
         {currentImage.title && (

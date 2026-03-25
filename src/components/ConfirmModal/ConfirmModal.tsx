@@ -46,15 +46,17 @@ export function ConfirmModal({
       <Modal.Body>
         <div className="flex gap-5 items-start py-2">
           {variantIcons[variant] && (
-            <div 
-              className="flex-shrink-0 p-2.5 bg-base-200/50 transition-all rounded-modalize"
-            >
+            <div className="flex-shrink-0 p-2.5 bg-base-200/50 transition-all rounded-modalize">
               {variantIcons[variant]}
             </div>
           )}
           <div className="flex-1 space-y-1">
-            <p className="text-base-content/90 font-medium leading-relaxed">{message}</p>
-            <p className="text-xs text-base-content/50 tracking-tight italic">This action cannot be undone.</p>
+            <p className="text-base-content/90 font-medium leading-relaxed">
+              {message}
+            </p>
+            <p className="text-xs text-base-content/50 tracking-tight italic">
+              This action cannot be undone.
+            </p>
           </div>
         </div>
       </Modal.Body>

@@ -28,7 +28,7 @@ export function App() {
   useEffect(() => {
     // Sync theme to document element
     document.documentElement.setAttribute('data-theme', theme);
-    
+
     // Sync favicon on initial load
     const favicon = document.querySelector('link[rel="icon"]');
     if (favicon) {

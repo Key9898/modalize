@@ -833,6 +833,11 @@ function Example() {
 - [x] Configurable animation duration
 - [x] Animation disable option
 
+### Advanced Interaction System
+- [x] Pinch-to-zoom & Pan (for ImageModal)
+- [x] Swipe-to-dismiss (for BottomSheet)
+- [x] Loading/Spinner states (consistent across all action modals)
+
 ### Responsive Design
 
 - [x] Mobile-first approach

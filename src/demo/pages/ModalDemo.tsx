@@ -38,17 +38,20 @@ export function ModalDemo() {
       <section className="space-y-2">
         <h2 className="text-3xl font-bold font-display">Base Modal</h2>
         <p className="text-base-content/60 leading-relaxed">
-          The foundation of the library. Uses a compound component pattern for maximum flexibility.
+          The foundation of the library. Uses a compound component pattern for
+          maximum flexibility.
         </p>
       </section>
 
-      <section className="card bg-base-200/50 p-12 border border-base-300 items-center justify-center">
+      <section className="card bg-base-200/50 p-6 md:p-12 border border-base-300 items-center justify-center">
         <div className="flex flex-col items-center gap-6 w-full">
           <div className="flex flex-wrap items-center justify-center gap-4 w-full">
             <select
               className="select select-bordered select-md bg-base-100 w-48"
               value={size}
-              onChange={e => setSize(e.target.value as 'sm' | 'md' | 'lg' | 'xl' | 'full')}
+              onChange={e =>
+                setSize(e.target.value as 'sm' | 'md' | 'lg' | 'xl' | 'full')
+              }
               aria-label="Modal size selector"
             >
               <option value="sm">Small (sm)</option>
@@ -71,7 +74,10 @@ export function ModalDemo() {
               <option value="2xl">Radius: 2XL</option>
               <option value="full">Radius: Full</option>
             </select>
-            <button className="btn btn-primary btn-md w-48 shadow-lg shadow-primary/20" onClick={open}>
+            <button
+              className="btn btn-primary btn-md w-48 shadow-lg shadow-primary/20"
+              onClick={open}
+            >
               Live Preview
             </button>
           </div>
@@ -85,20 +91,31 @@ export function ModalDemo() {
           <Modal.Body>
             <div className="space-y-4">
               <p className="text-base-content/70">
-                This modal is rendered via a React Portal to ensure it sits on top of all other content.
-                It includes automatic focus management and scroll locking.
+                This modal is rendered via a React Portal to ensure it sits on
+                top of all other content. It includes automatic focus management
+                and scroll locking.
               </p>
               <div className="form-control">
                 <label className="label">
-                  <span className="label-text-alt font-bold text-base-content/40 uppercase">Focus Test Input</span>
+                  <span className="label-text-alt font-bold text-base-content/40 uppercase">
+                    Focus Test Input
+                  </span>
                 </label>
-                <input type="text" className="input input-bordered w-full bg-base-200 border-none" placeholder="Try tabbing..." />
+                <input
+                  type="text"
+                  className="input input-bordered w-full bg-base-200 border-none"
+                  placeholder="Try tabbing..."
+                />
               </div>
             </div>
           </Modal.Body>
           <Modal.Footer align="right">
-             <button className="btn btn-ghost" onClick={close}>Close</button>
-             <button className="btn btn-primary px-6" onClick={close}>Got it</button>
+            <button className="btn btn-ghost" onClick={close}>
+              Close
+            </button>
+            <button className="btn btn-primary px-6" onClick={close}>
+              Got it
+            </button>
           </Modal.Footer>
         </Modal>
       </section>

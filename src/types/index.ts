@@ -46,6 +46,7 @@ export interface ModalContextValue {
   onClose: () => void;
   size: ModalSize;
   isClosing: boolean;
+  titleId: string;
 }
 
 // ===== Specialty Modal Types =====
@@ -59,6 +60,7 @@ export interface AlertModalProps {
   variant?: 'info' | 'success' | 'warning' | 'error';
   icon?: ReactNode;
   radius?: ModalRadius;
+  loading?: boolean;
 }
 
 export interface ConfirmModalProps {
@@ -103,7 +105,12 @@ export interface SignupData {
   [key: string]: unknown;
 }
 
-export type SignupField = 'name' | 'email' | 'password' | 'confirmPassword' | string;
+export type SignupField =
+  | 'name'
+  | 'email'
+  | 'password'
+  | 'confirmPassword'
+  | string;
 
 export interface SignupModalProps {
   isOpen: boolean;

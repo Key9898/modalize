@@ -37,13 +37,17 @@ export function FormModalDemo() {
       <section className="space-y-2">
         <h2 className="text-3xl font-bold font-display">Form Modal</h2>
         <p className="text-base-content/60 leading-relaxed">
-          Generic form container modal. Useful for any kind of custom data entry flows.
+          Generic form container modal. Useful for any kind of custom data entry
+          flows.
         </p>
       </section>
 
-      <section className="card bg-base-200/50 p-12 border border-base-300 items-center justify-center">
+      <section className="card bg-base-200/50 p-6 md:p-12 border border-base-300 items-center justify-center relative overflow-hidden">
         <div className="flex flex-col items-center gap-6">
-          <button className="btn btn-primary btn-md px-8 shadow-lg shadow-primary/20" onClick={open}>
+          <button
+            className="btn btn-primary btn-md px-8 shadow-lg shadow-primary/20"
+            onClick={open}
+          >
             New Feedback
           </button>
           <p className="text-[12px] font-medium text-base-content/40 tracking-tight uppercase">
@@ -55,21 +59,62 @@ export function FormModalDemo() {
           isOpen={isOpen}
           onClose={close}
           title="Product Feedback"
-          onSubmit={data => { alert(JSON.stringify(data)); close(); }}
+          onSubmit={data => {
+            alert(JSON.stringify(data));
+            close();
+          }}
         >
           <div className="form-control">
-            <label className="label"><span className="label-text-alt font-bold text-base-content/40 uppercase">Rating</span></label>
+            <label className="label">
+              <span className="label-text-alt font-bold text-base-content/40 uppercase">
+                Rating
+              </span>
+            </label>
             <div className="rating">
-               <input type="radio" name="rating" className="mask mask-star-2 bg-warning" value="1" />
-               <input type="radio" name="rating" className="mask mask-star-2 bg-warning" value="2" />
-               <input type="radio" name="rating" className="mask mask-star-2 bg-warning" value="3" checked />
-               <input type="radio" name="rating" className="mask mask-star-2 bg-warning" value="4" />
-               <input type="radio" name="rating" className="mask mask-star-2 bg-warning" value="5" />
+              <input
+                type="radio"
+                name="rating"
+                className="mask mask-star-2 bg-warning"
+                value="1"
+              />
+              <input
+                type="radio"
+                name="rating"
+                className="mask mask-star-2 bg-warning"
+                value="2"
+              />
+              <input
+                type="radio"
+                name="rating"
+                className="mask mask-star-2 bg-warning"
+                value="3"
+                checked
+              />
+              <input
+                type="radio"
+                name="rating"
+                className="mask mask-star-2 bg-warning"
+                value="4"
+              />
+              <input
+                type="radio"
+                name="rating"
+                className="mask mask-star-2 bg-warning"
+                value="5"
+              />
             </div>
           </div>
           <div className="form-control">
-            <label className="label"><span className="label-text-alt font-bold text-base-content/40 uppercase">Your Comments</span></label>
-            <textarea name="comments" className="textarea textarea-bordered h-24 bg-base-100 border-none" placeholder="How can we improve?"></textarea>
+            <label className="label">
+              <span className="label-text-alt font-bold text-base-content/40 uppercase">
+                Your Comments
+              </span>
+            </label>
+            <textarea
+              name="comments"
+              className="textarea textarea-bordered h-24 bg-base-100 border-none"
+              placeholder="How can we improve?"
+            ></textarea>
           </div>
         </FormModal>
       </section>

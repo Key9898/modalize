@@ -1,11 +1,19 @@
 import { useEffect, useCallback } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import type { DrawerProps } from '../../types';
 import { Portal } from '../../utils/portal';
 import { useScrollLock } from '../../hooks/useScrollLock';
 import { X } from 'lucide-react';
 
+const positionVariants = {
+  right: { x: '100%', y: 0 },
+  left: { x: '-100%', y: 0 },
+  top: { x: 0, y: '-100%' },
+  bottom: { x: 0, y: '100%' },
+};
+
 /**
- * Drawer/side panel component (left, right, top, bottom).
+ * Animated Drawer/side panel component with professional transitions.
  */
 export function Drawer({
   isOpen,
@@ -33,47 +41,55 @@ export function Drawer({
     return () => document.removeEventListener('keydown', handleKeyDown);
   }, [isOpen, handleKeyDown]);
 
-  if (!isOpen) return null;
-
   const radiusClass = radius ? `modalize-drawer--radius-${radius}` : '';
 
   return (
-    <Portal>
-      {/* Backdrop */}
-      <div
-        className="modalize-backdrop z-[1000]"
-        onClick={onClose}
-        aria-hidden="true"
-      />
+    <AnimatePresence>
+      {isOpen && (
+        <Portal>
+          {/* Backdrop */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="modalize-backdrop z-[1000]"
+            onClick={onClose}
+            aria-hidden="true"
+          />
 
-      {/* Drawer */}
-      <div
-        className={`modalize-drawer modalize-drawer--${position} modalize-drawer--${size} ${radiusClass} z-[1001]`}
-        role="dialog"
-        aria-modal="true"
-      >
-        {(title || showCloseButton) && (
-          <div className="modalize-header">
-            {title && (
-              <h2 className="modalize-header__title">{title}</h2>
+          {/* Drawer */}
+          <motion.div
+            initial={positionVariants[position]}
+            animate={{ x: 0, y: 0 }}
+            exit={positionVariants[position]}
+            transition={{ type: 'spring', damping: 30, stiffness: 350 }}
+            className={`modalize-drawer modalize-drawer--${position} modalize-drawer--${size} ${radiusClass} z-[1001]`}
+            role="dialog"
+            aria-modal="true"
+          >
+            {(title || showCloseButton) && (
+              <div className="modalize-header">
+                {title && <h2 className="modalize-header__title">{title}</h2>}
+                {showCloseButton && (
+                  <button
+                    type="button"
+                    className="modalize-header__close"
+                    onClick={onClose}
+                    aria-label="Close drawer"
+                  >
+                    <X size={18} strokeWidth={2} />
+                  </button>
+                )}
+              </div>
             )}
-            {showCloseButton && (
-              <button
-                type="button"
-                className="modalize-header__close"
-                onClick={onClose}
-                aria-label="Close drawer"
-              >
-                <X size={18} strokeWidth={2} />
-              </button>
-            )}
-          </div>
-        )}
 
-        <div className="modalize-body modalize-body--scrollable flex-1">
-          {children}
-        </div>
-      </div>
-    </Portal>
+            <div className="modalize-body modalize-body--scrollable flex-1">
+              {children}
+            </div>
+          </motion.div>
+        </Portal>
+      )}
+    </AnimatePresence>
   );
 }

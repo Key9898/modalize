@@ -1,4 +1,10 @@
-import { SlidersHorizontal, Maximize2, Code, XCircle, Focus } from 'lucide-react';
+import {
+  SlidersHorizontal,
+  Maximize2,
+  Code,
+  XCircle,
+  Focus,
+} from 'lucide-react';
 
 const modalSizes = [
   { id: 'sm', name: 'Small', description: 'Compact modal size' },
@@ -10,7 +16,11 @@ const modalSizes = [
 
 const focusIndicators = [
   { id: 'default', name: 'Default', description: 'Standard focus ring' },
-  { id: 'high-contrast', name: 'High Contrast', description: 'More visible focus indicator' },
+  {
+    id: 'high-contrast',
+    name: 'High Contrast',
+    description: 'More visible focus indicator',
+  },
 ];
 
 export function Preferences() {
@@ -23,7 +33,9 @@ export function Preferences() {
           </div>
           <div>
             <h2 className="text-2xl font-bold">Preferences</h2>
-            <p className="text-sm text-base-content/60">Configure your workflow preferences</p>
+            <p className="text-sm text-base-content/60">
+              Configure your workflow preferences
+            </p>
           </div>
         </div>
       </section>
@@ -33,11 +45,16 @@ export function Preferences() {
           <Maximize2 className="w-5 h-5 text-base-content/60" />
           <div>
             <h3 className="text-lg font-semibold">Default Modal Size</h3>
-            <p className="text-sm text-base-content/60">Initial size for modal previews.</p>
+            <p className="text-sm text-base-content/60">
+              Initial size for modal previews.
+            </p>
           </div>
         </div>
         <div className="form-control w-full max-w-xs">
-          <select className="select select-bordered w-full" aria-label="Default modal size selector">
+          <select
+            className="select select-bordered w-full"
+            aria-label="Default modal size selector"
+          >
             {modalSizes.map(size => (
               <option key={size.id} value={size.id} selected={size.id === 'md'}>
                 {size.name}
@@ -52,12 +69,18 @@ export function Preferences() {
           <Code className="w-5 h-5 text-base-content/60" />
           <div>
             <h3 className="text-lg font-semibold">Show Code Lines</h3>
-            <p className="text-sm text-base-content/60">Display line numbers in code examples.</p>
+            <p className="text-sm text-base-content/60">
+              Display line numbers in code examples.
+            </p>
           </div>
         </div>
         <div className="form-control">
           <label className="label cursor-pointer justify-start gap-4">
-            <input type="checkbox" className="toggle toggle-secondary" defaultChecked />
+            <input
+              type="checkbox"
+              className="toggle toggle-secondary"
+              defaultChecked
+            />
             <span className="label-text">Enable line numbers</span>
           </label>
         </div>
@@ -68,12 +91,18 @@ export function Preferences() {
           <XCircle className="w-5 h-5 text-base-content/60" />
           <div>
             <h3 className="text-lg font-semibold">Auto Close Preview</h3>
-            <p className="text-sm text-base-content/60">Automatically close modals when navigating away.</p>
+            <p className="text-sm text-base-content/60">
+              Automatically close modals when navigating away.
+            </p>
           </div>
         </div>
         <div className="form-control">
           <label className="label cursor-pointer justify-start gap-4">
-            <input type="checkbox" className="toggle toggle-secondary" defaultChecked />
+            <input
+              type="checkbox"
+              className="toggle toggle-secondary"
+              defaultChecked
+            />
             <span className="label-text">Enable auto close</span>
           </label>
         </div>
@@ -84,19 +113,29 @@ export function Preferences() {
           <Focus className="w-5 h-5 text-base-content/60" />
           <div>
             <h3 className="text-lg font-semibold">Focus Indicator</h3>
-            <p className="text-sm text-base-content/60">Visibility of focus rings for accessibility.</p>
+            <p className="text-sm text-base-content/60">
+              Visibility of focus rings for accessibility.
+            </p>
           </div>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-lg">
           {focusIndicators.map(indicator => (
-            <label 
-              key={indicator.id} 
+            <label
+              key={indicator.id}
               className="card bg-base-200 p-4 cursor-pointer hover:bg-base-300 transition-colors border-2 border-transparent has-[:checked]:border-secondary"
             >
-              <input type="radio" name="focus-indicator" value={indicator.id} className="hidden" defaultChecked={indicator.id === 'default'} />
+              <input
+                type="radio"
+                name="focus-indicator"
+                value={indicator.id}
+                className="hidden"
+                defaultChecked={indicator.id === 'default'}
+              />
               <div>
                 <div className="font-semibold">{indicator.name}</div>
-                <div className="text-xs text-base-content/60">{indicator.description}</div>
+                <div className="text-xs text-base-content/60">
+                  {indicator.description}
+                </div>
               </div>
             </label>
           ))}

@@ -50,13 +50,17 @@ export function LoadingModalDemo() {
       <section className="space-y-2">
         <h2 className="text-3xl font-bold font-display">Loading Modal</h2>
         <p className="text-base-content/60 leading-relaxed">
-          Overlay for blocking non-critical user interactions during background processes.
+          Overlay for blocking non-critical user interactions during background
+          processes.
         </p>
       </section>
 
-      <section className="card bg-base-200/50 p-12 border border-base-300 items-center justify-center">
+      <section className="card bg-base-200/50 p-6 md:p-12 border border-base-300 items-center justify-center relative overflow-hidden">
         <div className="flex flex-col items-center gap-6">
-          <button className="btn btn-primary btn-md px-8 shadow-lg shadow-primary/20" onClick={startTask}>
+          <button
+            className="btn btn-primary btn-md px-8 shadow-lg shadow-primary/20"
+            onClick={startTask}
+          >
             Run Background Task
           </button>
           <p className="text-[12px] font-medium text-base-content/40 tracking-tight uppercase">

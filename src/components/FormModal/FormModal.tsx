@@ -30,7 +30,11 @@ export function FormModal({
     <Modal isOpen={isOpen} onClose={onClose} size="md" radius={radius}>
       <Modal.Header>{title}</Modal.Header>
       <Modal.Body>
-        <form id="modalize-form" onSubmit={handleSubmit} className="flex flex-col gap-4">
+        <form
+          id="modalize-form"
+          onSubmit={handleSubmit}
+          className="flex flex-col gap-4"
+        >
           {children}
         </form>
       </Modal.Body>

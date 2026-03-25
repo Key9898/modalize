@@ -17,14 +17,22 @@ export const Default: Story = {
     const { isOpen, open, close } = useModal(true);
     return (
       <>
-        <button className="btn" onClick={open}>Open Confirm Modal</button>
-        <ConfirmModal {...args} isOpen={isOpen} onClose={close} onConfirm={close} />
+        <button className="btn" onClick={open}>
+          Open Confirm Modal
+        </button>
+        <ConfirmModal
+          {...args}
+          isOpen={isOpen}
+          onClose={close}
+          onConfirm={close}
+        />
       </>
     );
   },
   args: {
     title: 'Delete Item',
-    message: 'Are you sure you want to delete this item? This action cannot be undone.',
+    message:
+      'Are you sure you want to delete this item? This action cannot be undone.',
     confirmText: 'Delete',
     cancelText: 'Cancel',
     variant: 'danger',

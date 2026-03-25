@@ -24,13 +24,19 @@ export const Default: Story = {
     const { isOpen, open, close } = useModal(true);
     return (
       <>
-        <button className="btn btn-primary" onClick={open}>Open Base Modal</button>
+        <button className="btn btn-primary" onClick={open}>
+          Open Base Modal
+        </button>
         <Modal {...args} isOpen={isOpen} onClose={close}>
           <Modal.Header>Example Title</Modal.Header>
           <Modal.Body>This is the modal body content.</Modal.Body>
           <Modal.Footer align="right">
-            <button className="btn btn-ghost" onClick={close}>Cancel</button>
-            <button className="btn btn-primary" onClick={close}>Confirm</button>
+            <button className="btn btn-ghost" onClick={close}>
+              Cancel
+            </button>
+            <button className="btn btn-primary" onClick={close}>
+              Confirm
+            </button>
           </Modal.Footer>
         </Modal>
       </>

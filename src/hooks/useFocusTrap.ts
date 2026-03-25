@@ -28,9 +28,7 @@ export function useFocusTrap<T extends HTMLElement>(isActive: boolean) {
       containerRef.current.querySelectorAll<HTMLElement>(
         focusableSelectors.join(', ')
       )
-    ).filter(
-      el => !el.hasAttribute('disabled') && el.tabIndex !== -1
-    );
+    ).filter(el => !el.hasAttribute('disabled') && el.tabIndex !== -1);
   }, []);
 
   useEffect(() => {

@@ -17,11 +17,11 @@ export const Default: Story = {
     const { isOpen, open, close } = useModal(true);
     return (
       <>
-        <button className="btn" onClick={open}>Open Drawer</button>
+        <button className="btn" onClick={open}>
+          Open Drawer
+        </button>
         <Drawer {...args} isOpen={isOpen} onClose={close}>
-          <div className="p-4">
-            Drawer content goes here.
-          </div>
+          <div className="p-4">Drawer content goes here.</div>
         </Drawer>
       </>
     );

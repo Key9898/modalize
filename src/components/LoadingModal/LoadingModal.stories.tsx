@@ -17,21 +17,22 @@ export const Default: Story = {
     const { isOpen, open, close } = useModal(true);
     return (
       <>
-        <button className="btn" onClick={open}>Open Loading</button>
+        <button className="btn" onClick={open}>
+          Open Loading
+        </button>
         <div className="absolute opacity-0">
           <button id="closeLoadingTest" onClick={close}></button>
         </div>
-        <LoadingModal 
-           {...args} 
-           isOpen={isOpen} 
-        />
+        <LoadingModal {...args} isOpen={isOpen} />
         {/* Helper to close since loading modal overlays without close buttons */}
-        <p className="mt-4 text-xs">Press ESC to close loading modal visually in storybook.</p>
+        <p className="mt-4 text-xs">
+          Press ESC to close loading modal visually in storybook.
+        </p>
       </>
     );
   },
   args: {
     message: 'Processing your payment...',
-    spinner: 'default'
+    spinner: 'default',
   },
 };

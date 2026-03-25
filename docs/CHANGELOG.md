@@ -4,6 +4,108 @@ All notable changes to the Modalize project will be documented in this file. Thi
 
 ---
 
+## [2026-03-25] - Accessibility & Code Quality Fixes
+
+### Fixed
+- **aria-labelledby Unique ID (WCAG 2.1):** Replaced hard-coded `id="modalize-title"` with React's `useId()` hook for unique ID generation. This ensures nested modals have distinct IDs, preventing ARIA conflicts.
+- **prefers-reduced-motion Support (WCAG 2.1 Level AAA):** Added `@media (prefers-reduced-motion: reduce)` media query to disable animations for users who prefer reduced motion.
+- **Duplicate CSS Removal:** Removed duplicate `@media (max-width: 640px)` block in global.css that was causing unnecessary CSS bloat.
+
+### Files Modified
+- `src/types/index.ts` - Added `titleId` to `ModalContextValue` interface.
+- `src/components/Modal/Modal.tsx` - Implemented `useId()` hook for unique titleId generation.
+- `src/components/Modal/ModalHeader.tsx` - Updated to use context-provided `titleId` instead of hard-coded ID.
+- `src/styles/global.css` - Added reduced motion support and removed duplicate CSS rules.
+
+---
+
+## [2026-03-25] - UI/UX & Interaction Refinement
+
+### Added
+- **Pinch-to-Zoom (Rule 33):** Implemented high-end pinch-to-zoom and pan interactions in `ImageModal` using `framer-motion` for professional mobile media viewing.
+- **Swipe-to-Dismiss (Rule 33):** Added gesture-based swipe-down-to-dismiss behavior for `BottomSheet` (Standard mobile UX).
+- **Loading States:** Implemented consistent loading/spinner support for `AlertModal` to match `ConfirmModal` and `FormModal` architecture.
+
+### Fixed/Improved
+- **Gallery Responsiveness (Rule 7):**
+  - Resolved navigation button overflow on small screens by switching to responsive padding-based offsets.
+  - Replaced fixed `min-height` with fluid `min-h-[300px] md:min-h-[450px]` for better fit on compact devices.
+- **Image Controls:** Added "Reset Zoom" and "Zoom In/Out" dedicated control overlays to `ImageModal` for accessibility and ease of use.
+- **ImageModal Layout Refinement:**
+  - Standardized container padding (`p-6 sm:p-12`) to provide breathing room.
+  - Repositioned top-right icons into a flex header to prevent overlap with the image.
+  - Constrained image height further (`max-h-[65vh] sm:max-h-[72vh]`) to ensure UI elements remain clear of the content.
+  - Lowered zoom control overlay and refined title spacing for a more open, professional feel.
+- **A11y:** Ensured ARIA compliance for new gesture-based interactions.
+
+### Files Modified
+- `src/types/index.ts` - Added types for new interaction states.
+- `src/components/GalleryModal/GalleryModal.tsx` - Fixed navigation and height responsiveness.
+- `src/components/BottomSheet/BottomSheet.tsx` - Added swipe-to-dismiss gesture.
+- `src/components/ImageModal/ImageModal.tsx` - Implemented pinch-to-zoom and refined controls.
+- `src/components/AlertModal/AlertModal.tsx` - Added loading state.
+
+---
+
+## [2026-03-24] - Responsive Sidebar with Mobile Overlay
+
+### Added
+- **Responsive Sidebar Pattern:** Implemented industry-standard responsive sidebar behavior following Vercel, Linear, and GitHub patterns.
+- **Mobile Sidebar Overlay:** Sidebar now opens as a slide-in overlay on mobile/tablet with backdrop blur.
+- **Hamburger Menu:** Added hamburger menu button (Menu icon) to Navbar for mobile/tablet users.
+- **Mobile Sidebar State:** New `isMobileSidebarOpen` state in `useDemoStore` with `toggleMobileSidebar` and `closeMobileSidebar` actions.
+
+### Features
+- **Desktop (lg: and above):** Sidebar visible by default, can collapse/expand with toggle button.
+- **Mobile/Tablet (below lg:):** Sidebar completely hidden by default, hamburger menu in navbar opens overlay.
+- **Backdrop:** Semi-transparent backdrop (`bg-black/50`) that closes sidebar on click.
+- **Close Button:** X button in mobile sidebar header for explicit close action.
+- **Auto-close on Navigate:** Mobile sidebar automatically closes when user clicks a navigation link.
+- **Responsive Search:** Search input width adapts (`w-48 sm:w-64`) for better mobile UX.
+- **Responsive Buttons:** NPM install button hidden on mobile (`hidden sm:flex`).
+
+### Fixed
+- **Logo Duplication:** Resolved a bug where Logo and Title were appearing twice in the mobile sidebar. Ensured only the mobile-specific header (with close button) is shown in the slide-up overlay (Rule 7 Compliance).
+
+### Technical Details
+- Extracted `SidebarContent` component for reuse between desktop and mobile sidebars.
+- Desktop sidebar uses `hidden lg:flex` to only show on large screens.
+- Mobile sidebar uses `AnimatePresence` for smooth enter/exit animations.
+- Framer Motion animations for slide-in effect (`x: -288` to `x: 0`).
+- Tailwind CSS responsive breakpoints (`lg:` = 1024px).
+
+### Files Modified
+- `src/demo/store/useDemoStore.ts` - Added mobile sidebar state and actions.
+- `src/demo/components/Sidebar.tsx` - Responsive layout with mobile overlay.
+- `src/demo/components/Navbar.tsx` - Hamburger menu and responsive adjustments.
+
+---
+
+## [2026-03-24] - Global Search Functionality
+
+### Added
+- **Global Search Component:** Implemented a comprehensive search system in `Navbar.tsx` with real-time filtering and keyboard navigation.
+- **Search Data Module:** Created `searchData.ts` with all components, pages, and settings indexed for search.
+- **Keyboard Navigation:** Full keyboard support (↑↓ to navigate, Enter to select, Escape to close).
+- **Smart Scoring:** Search results ranked by relevance (exact match > starts with > contains > keyword match > category match).
+- **Visual Feedback:** Animated dropdown with highlighted selection state and result count footer.
+- **Category Organization:** Results grouped by category (Get Started, Components, Settings) with icons.
+
+### Features
+- **Instant Search:** Real-time filtering as user types with 8 results max display.
+- **Clear Button:** Quick clear with X button that maintains focus.
+- **Keyboard Shortcuts:** Footer shows navigation hints (↑↓ navigate, ↵ select, esc close).
+- **Framer Motion Animations:** Smooth enter/exit transitions for dropdown and clear button.
+- **Click Outside Detection:** Auto-close search when clicking outside.
+
+### Technical Details
+- Uses `useMemo` for optimized search performance.
+- `useCallback` for stable navigation handlers.
+- Proper TypeScript typing with `SearchItem` interface.
+- Lucide-react icons for consistent iconography.
+
+---
+
 ## [2026-03-23] - Advanced Radius System & Core Quality Pass
 
 ### Added

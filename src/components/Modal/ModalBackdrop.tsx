@@ -1,5 +1,3 @@
-
-
 interface ModalBackdropProps {
   onClick?: () => void;
   isClosing?: boolean;

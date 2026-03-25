@@ -1,10 +1,6 @@
 /* eslint-disable react-refresh/only-export-components */
-import React, {
-  useEffect,
-  useCallback,
-  useState,
-  useRef,
-} from 'react';
+import { useEffect, useCallback, useRef, useId } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import type { ModalProps } from './Modal.types';
 import { ModalHeader } from './ModalHeader';
 import { ModalBody } from './ModalBody';
@@ -72,9 +68,9 @@ function ModalRoot({
   ariaDescribedBy,
   children,
 }: ModalProps) {
-  const [isClosing, setIsClosing] = useState(false);
   const modalIdRef = useRef<number>(-1);
-  const containerRef = useFocusTrap<HTMLDivElement>(isOpen && !isClosing);
+  const titleId = useId();
+  const containerRef = useFocusTrap<HTMLDivElement>(isOpen);
 
   // Scroll lock
   useScrollLock(isOpen);
@@ -92,19 +88,10 @@ function ModalRoot({
     };
   }, [isOpen, ariaLabel]);
 
-  // Handle close with animation
+  // Handle Close
   const handleClose = useCallback(() => {
-    if (animation) {
-      setIsClosing(true);
-      const timer = setTimeout(() => {
-        setIsClosing(false);
-        onClose();
-      }, 150);
-      return () => clearTimeout(timer);
-    } else {
-      onClose();
-    }
-  }, [animation, onClose]);
+    onClose();
+  }, [onClose]);
 
   // ESC key handler
   useEffect(() => {
@@ -130,47 +117,65 @@ function ModalRoot({
     [closeOnBackdrop, handleClose]
   );
 
-  if (!isOpen && !isClosing) return null;
-
-  // Calculate z-index classes based on stack position
+  // Calculate z-index positions
   // eslint-disable-next-line react-hooks/refs
   const stackIndex = Math.max(0, getStackIndex(modalIdRef.current));
-  
-  // Use predefined classes to avoid dynamically injected inline styles
-  const zIndexBackdropClass = ['z-[1000]', 'z-[1010]', 'z-[1020]', 'z-[1030]', 'z-[1040]'][Math.min(stackIndex, 4)];
-  const zIndexModalClass = ['z-[1001]', 'z-[1011]', 'z-[1021]', 'z-[1031]', 'z-[1041]'][Math.min(stackIndex, 4)];
+  const zIndexBase = 1000 + stackIndex * 10;
+  const computedZIndexBackdrop = zIndex || zIndexBase;
+  const computedZIndexModal = zIndex ? zIndex + 1 : zIndexBase + 1;
 
   const a11yProps = getModalA11yProps({
     ariaLabel,
     ariaDescribedBy,
-    titleId: 'modalize-title',
+    titleId,
   });
 
   const modalContent = (
-    <ModalContext.Provider
-      value={{
-        onClose: handleClose,
-        size,
-        isClosing,
-      }}
-    >
-      {/* Backdrop */}
-      <div
-        className={`modalize-backdrop ${isClosing ? 'modalize-backdrop--closing' : ''} ${!animation ? 'modalize-no-animation' : ''} ${zIndex ? `z-[${zIndex}]` : zIndexBackdropClass} ${overlayClassName}`}
-        onClick={handleBackdropClick}
-        aria-hidden="true"
-      >
-        {/* Modal Panel */}
-        <div
-          ref={containerRef}
-          className={`modalize-modal modalize-modal--${size} modalize-modal--radius-${radius} ${isClosing ? 'modalize-modal--closing' : ''} ${!animation ? 'modalize-no-animation' : ''} ${zIndex ? `z-[${zIndex + 1}]` : zIndexModalClass} ${className}`}
-          onClick={e => e.stopPropagation()}
-          {...a11yProps}
+    <AnimatePresence>
+      {isOpen && (
+        <ModalContext.Provider
+          value={{
+            onClose: handleClose,
+            size,
+            isClosing: false, // Legacy fallback for types
+            titleId,
+          }}
         >
-          {children}
-        </div>
-      </div>
-    </ModalContext.Provider>
+          {/* Backdrop */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.15 }}
+            className={`modalize-backdrop ${overlayClassName}`}
+            style={{ zIndex: computedZIndexBackdrop }}
+            onClick={handleBackdropClick}
+            aria-hidden="true"
+          >
+            {/* Modal Panel Container - Centers the modal */}
+            <div className="flex items-center justify-center min-h-full p-4">
+              <motion.div
+                ref={containerRef}
+                initial={
+                  animation ? { opacity: 0, scale: 0.95, y: 10 } : undefined
+                }
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={
+                  animation ? { opacity: 0, scale: 0.95, y: 10 } : undefined
+                }
+                transition={{ type: 'spring', damping: 25, stiffness: 400 }}
+                className={`modalize-modal modalize-modal--${size} modalize-modal--radius-${radius} ${className}`}
+                style={{ zIndex: computedZIndexModal }}
+                onClick={(e: React.MouseEvent) => e.stopPropagation()}
+                {...a11yProps}
+              >
+                {children}
+              </motion.div>
+            </div>
+          </motion.div>
+        </ModalContext.Provider>
+      )}
+    </AnimatePresence>
   );
 
   if (portal) {

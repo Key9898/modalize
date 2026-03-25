@@ -28,6 +28,7 @@ export function AlertModal({
   variant = 'info',
   icon,
   radius,
+  loading = false,
 }: AlertModalProps) {
   const displayIcon = icon ?? defaultIcons[variant];
 
@@ -36,18 +37,25 @@ export function AlertModal({
       <Modal.Body>
         <div className="flex flex-col items-center text-center py-8 px-2">
           {displayIcon && (
-            <div 
+            <div
               className={`mb-6 p-4 bg-base-200/50 transition-all rounded-modalize ${variantClasses[variant]}`}
             >
               {displayIcon}
             </div>
           )}
           <h3 className="text-xl font-bold mb-3 tracking-tight">{title}</h3>
-          <p className="text-base-content/60 leading-relaxed text-sm">{message}</p>
+          <p className="text-base-content/60 leading-relaxed text-sm">
+            {message}
+          </p>
         </div>
       </Modal.Body>
       <Modal.Footer align="center">
-        <button className="btn btn-primary btn-md btn-wide shadow-lg shadow-primary/20" onClick={onClose}>
+        <button
+          className="btn btn-primary btn-md btn-wide shadow-lg shadow-primary/20"
+          onClick={onClose}
+          disabled={loading}
+        >
+          {loading && <span className="loading loading-spinner loading-xs" />}
           {buttonText}
         </button>
       </Modal.Footer>

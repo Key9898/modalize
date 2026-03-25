@@ -17,12 +17,10 @@ export const Default: Story = {
     const { isOpen, open, close } = useModal(true);
     return (
       <>
-        <button className="btn" onClick={open}>Open Image</button>
-        <ImageModal 
-           {...args} 
-           isOpen={isOpen} 
-           onClose={close} 
-        />
+        <button className="btn" onClick={open}>
+          Open Image
+        </button>
+        <ImageModal {...args} isOpen={isOpen} onClose={close} />
       </>
     );
   },

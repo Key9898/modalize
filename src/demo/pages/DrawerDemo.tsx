@@ -25,7 +25,9 @@ function Example() {
 
 export function DrawerDemo() {
   const { isOpen, open, close } = useModal();
-  const [position, setPosition] = useState<'left' | 'right' | 'top' | 'bottom'>('right');
+  const [position, setPosition] = useState<'left' | 'right' | 'top' | 'bottom'>(
+    'right'
+  );
   const [radius, setRadius] = useState<ModalRadius>('lg');
 
   return (
@@ -33,17 +35,22 @@ export function DrawerDemo() {
       <section className="space-y-2">
         <h2 className="text-3xl font-bold font-display">Drawer</h2>
         <p className="text-base-content/60 leading-relaxed">
-          A sidebar panel that slides in from any screen edge. Ideal for navigation, carts, or settings.
+          A sidebar panel that slides in from any screen edge. Ideal for
+          navigation, carts, or settings.
         </p>
       </section>
 
-      <section className="card bg-base-200/50 p-12 border border-base-300 items-center justify-center">
+      <section className="card bg-base-200/50 p-6 md:p-12 border border-base-300 items-center justify-center">
         <div className="flex flex-col items-center gap-6 w-full">
           <div className="flex flex-wrap items-center justify-center gap-4 w-full">
-            <select 
-              className="select select-bordered select-md bg-base-100 w-48" 
-              value={position} 
-              onChange={e => setPosition(e.target.value as 'left' | 'right' | 'top' | 'bottom')}
+            <select
+              className="select select-bordered select-md bg-base-100 w-48"
+              value={position}
+              onChange={e =>
+                setPosition(
+                  e.target.value as 'left' | 'right' | 'top' | 'bottom'
+                )
+              }
               aria-label="Drawer position selector"
             >
               <option value="right">Right Side</option>
@@ -51,9 +58,9 @@ export function DrawerDemo() {
               <option value="top">Top Bar</option>
               <option value="bottom">Bottom Bar</option>
             </select>
-            <select 
-              className="select select-bordered select-md bg-base-100 w-48" 
-              value={radius} 
+            <select
+              className="select select-bordered select-md bg-base-100 w-48"
+              value={radius}
               onChange={e => setRadius(e.target.value as ModalRadius)}
               aria-label="Drawer radius selector"
             >
@@ -65,7 +72,10 @@ export function DrawerDemo() {
               <option value="2xl">Radius: 2XL</option>
               <option value="full">Radius: Full</option>
             </select>
-            <button className="btn btn-primary btn-md w-48 shadow-lg shadow-primary/20" onClick={open}>
+            <button
+              className="btn btn-primary btn-md w-48 shadow-lg shadow-primary/20"
+              onClick={open}
+            >
               Open Drawer
             </button>
           </div>
@@ -74,13 +84,26 @@ export function DrawerDemo() {
           </p>
         </div>
 
-        <Drawer isOpen={isOpen} onClose={close} position={position} title="Cart Summary" size="md" radius={radius}>
+        <Drawer
+          isOpen={isOpen}
+          onClose={close}
+          position={position}
+          title="Cart Summary"
+          size="md"
+          radius={radius}
+        >
           <div className="space-y-6">
-            <div className="p-4 bg-base-300 transition-all rounded-modalize">Product A x 2 - $40.00</div>
-            <div className="p-4 bg-base-300 transition-all rounded-modalize">Product B x 1 - $25.00</div>
+            <div className="p-4 bg-base-300 transition-all rounded-modalize">
+              Product A x 2 - $40.00
+            </div>
+            <div className="p-4 bg-base-300 transition-all rounded-modalize">
+              Product B x 1 - $25.00
+            </div>
             <div className="divider opacity-50">Total</div>
             <div className="text-2xl font-bold px-4">$65.00</div>
-            <button className="btn btn-primary w-full mt-4" onClick={close}>Checkout Now</button>
+            <button className="btn btn-primary w-full mt-4" onClick={close}>
+              Checkout Now
+            </button>
           </div>
         </Drawer>
       </section>

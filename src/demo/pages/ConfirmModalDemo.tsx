@@ -32,8 +32,12 @@ function Example() {
 
 export function ConfirmModalDemo() {
   const { isOpen, open, close } = useModal();
-  const [variant, setVariant] = useState<'danger' | 'warning' | 'info' | 'success'>('danger');
-  const [radius, setRadius] = useState<'none' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | 'full'>('lg');
+  const [variant, setVariant] = useState<
+    'danger' | 'warning' | 'info' | 'success'
+  >('danger');
+  const [radius, setRadius] = useState<
+    'none' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | 'full'
+  >('lg');
   const [loading, setLoading] = useState(false);
 
   const handleConfirm = () => {
@@ -49,17 +53,22 @@ export function ConfirmModalDemo() {
       <section className="space-y-2">
         <h2 className="text-3xl font-bold font-display">Confirm Modal</h2>
         <p className="text-base-content/60 leading-relaxed">
-          A pre-built specialized modal for important decisions or destructive actions.
+          A pre-built specialized modal for important decisions or destructive
+          actions.
         </p>
       </section>
 
-      <section className="card bg-base-200/50 p-12 border border-base-300 items-center justify-center">
+      <section className="card bg-base-200/50 p-6 md:p-12 border border-base-300 items-center justify-center relative overflow-hidden">
         <div className="flex flex-col items-center gap-6">
           <div className="flex flex-wrap items-center justify-center gap-4">
-            <select 
-              className="select select-bordered select-md bg-base-100 w-48" 
-              value={variant} 
-              onChange={e => setVariant(e.target.value as 'danger' | 'warning' | 'info' | 'success')}
+            <select
+              className="select select-bordered select-md bg-base-100 w-48"
+              value={variant}
+              onChange={e =>
+                setVariant(
+                  e.target.value as 'danger' | 'warning' | 'info' | 'success'
+                )
+              }
               aria-label="Confirm modal variant selector"
             >
               <option value="danger">Danger (Delete)</option>
@@ -67,9 +76,9 @@ export function ConfirmModalDemo() {
               <option value="info">Info</option>
               <option value="success">Success</option>
             </select>
-            <select 
-              className="select select-bordered select-md bg-base-100 w-48" 
-              value={radius} 
+            <select
+              className="select select-bordered select-md bg-base-100 w-48"
+              value={radius}
               onChange={e => setRadius(e.target.value as ModalRadius)}
               aria-label="Confirm modal radius selector"
             >
@@ -81,13 +90,16 @@ export function ConfirmModalDemo() {
               <option value="2xl">Radius: 2XL</option>
               <option value="full">Radius: Full</option>
             </select>
-            <button 
+            <button
               className={`btn btn-md w-48 shadow-lg ${
-                variant === 'danger' ? 'btn-error shadow-error/20' : 
-                variant === 'warning' ? 'btn-warning shadow-warning/20' : 
-                variant === 'info' ? 'btn-info shadow-info/20' : 
-                'btn-success shadow-success/20'
-              }`} 
+                variant === 'danger'
+                  ? 'btn-error shadow-error/20'
+                  : variant === 'warning'
+                    ? 'btn-warning shadow-warning/20'
+                    : variant === 'info'
+                      ? 'btn-info shadow-info/20'
+                      : 'btn-success shadow-success/20'
+              }`}
               onClick={open}
             >
               Live Preview
@@ -102,7 +114,15 @@ export function ConfirmModalDemo() {
           isOpen={isOpen}
           onClose={close}
           onConfirm={handleConfirm}
-          title={variant === 'danger' ? 'Delete Item?' : variant === 'warning' ? 'Update Settings?' : variant === 'info' ? 'Confirm Action?' : 'Success Task?'}
+          title={
+            variant === 'danger'
+              ? 'Delete Item?'
+              : variant === 'warning'
+                ? 'Update Settings?'
+                : variant === 'info'
+                  ? 'Confirm Action?'
+                  : 'Success Task?'
+          }
           message="Are you sure you want to proceed with this operation? This might have consequences for the system state."
           confirmText={variant === 'danger' ? 'Yes, delete it' : 'Confirm'}
           variant={variant}

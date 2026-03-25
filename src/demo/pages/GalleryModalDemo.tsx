@@ -26,9 +26,18 @@ function Example() {
 }`;
 
 const demoImages = [
-  { src: 'https://images.unsplash.com/photo-1579546929518-9e396f3cc809?w=800&h=600&fit=crop', title: 'Gradient A' },
-  { src: 'https://images.unsplash.com/photo-1557683316-973673baf926?w=800&h=600&fit=crop', title: 'Gradient B' },
-  { src: 'https://images.unsplash.com/photo-1557682250-33bd709cbe85?w=800&h=600&fit=crop', title: 'Gradient C' },
+  {
+    src: 'https://images.unsplash.com/photo-1579546929518-9e396f3cc809?w=800&h=600&fit=crop',
+    title: 'Gradient A',
+  },
+  {
+    src: 'https://images.unsplash.com/photo-1557683316-973673baf926?w=800&h=600&fit=crop',
+    title: 'Gradient B',
+  },
+  {
+    src: 'https://images.unsplash.com/photo-1557682250-33bd709cbe85?w=800&h=600&fit=crop',
+    title: 'Gradient C',
+  },
 ];
 
 export function GalleryModalDemo() {
@@ -40,16 +49,17 @@ export function GalleryModalDemo() {
       <section className="space-y-2">
         <h2 className="text-3xl font-bold font-display">Gallery Modal</h2>
         <p className="text-base-content/60 leading-relaxed">
-          Full-screen image gallery with keyboard navigation, touch support, and thumbnail previews.
+          Full-screen image gallery with keyboard navigation, touch support, and
+          thumbnail previews.
         </p>
       </section>
 
-      <section className="card bg-base-200/50 p-12 border border-base-300 items-center justify-center">
+      <section className="card bg-base-200/50 p-6 md:p-12 border border-base-300 items-center justify-center relative overflow-hidden">
         <div className="flex flex-col items-center gap-6 w-full">
           <div className="flex flex-wrap items-center justify-center gap-4 w-full">
-            <select 
-              className="select select-bordered select-md bg-base-100 w-48" 
-              value={radius} 
+            <select
+              className="select select-bordered select-md bg-base-100 w-48"
+              value={radius}
               onChange={e => setRadius(e.target.value as ModalRadius)}
               aria-label="Gallery radius selector"
             >
@@ -61,7 +71,10 @@ export function GalleryModalDemo() {
               <option value="2xl">Radius: 2XL</option>
               <option value="full">Radius: Full</option>
             </select>
-            <button className="btn btn-primary btn-md px-8 shadow-lg shadow-primary/20" onClick={open}>
+            <button
+              className="btn btn-primary btn-md px-8 shadow-lg shadow-primary/20"
+              onClick={open}
+            >
               Open Image Gallery
             </button>
           </div>
@@ -70,7 +83,14 @@ export function GalleryModalDemo() {
           </p>
         </div>
 
-        <GalleryModal isOpen={isOpen} onClose={close} images={demoImages} loop showThumbnails radius={radius} />
+        <GalleryModal
+          isOpen={isOpen}
+          onClose={close}
+          images={demoImages}
+          loop
+          showThumbnails
+          radius={radius}
+        />
       </section>
 
       <section className="space-y-4">

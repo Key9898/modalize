@@ -15,12 +15,14 @@ type Story = StoryObj<typeof GalleryModal>;
 const sampleImages = [
   {
     src: 'https://images.unsplash.com/photo-1682687220742-aba13b6e50ba?auto=format&fit=crop&q=80&w=1000',
-    thumbnail: 'https://images.unsplash.com/photo-1682687220742-aba13b6e50ba?auto=format&fit=crop&q=80&w=150',
+    thumbnail:
+      'https://images.unsplash.com/photo-1682687220742-aba13b6e50ba?auto=format&fit=crop&q=80&w=150',
     title: 'Mountain Lake',
   },
   {
     src: 'https://images.unsplash.com/photo-1682695796954-cbd046772ee5?auto=format&fit=crop&q=80&w=1000',
-    thumbnail: 'https://images.unsplash.com/photo-1682695796954-cbd046772ee5?auto=format&fit=crop&q=80&w=150',
+    thumbnail:
+      'https://images.unsplash.com/photo-1682695796954-cbd046772ee5?auto=format&fit=crop&q=80&w=150',
     title: 'Desert Dunes',
   },
 ];
@@ -30,12 +32,10 @@ export const Default: Story = {
     const { isOpen, open, close } = useModal(true);
     return (
       <>
-        <button className="btn" onClick={open}>Open Gallery</button>
-        <GalleryModal 
-           {...args} 
-           isOpen={isOpen} 
-           onClose={close} 
-        />
+        <button className="btn" onClick={open}>
+          Open Gallery
+        </button>
+        <GalleryModal {...args} isOpen={isOpen} onClose={close} />
       </>
     );
   },

@@ -32,16 +32,17 @@ export function BottomSheetDemo() {
       <section className="space-y-2">
         <h2 className="text-3xl font-bold font-display">Bottom Sheet</h2>
         <p className="text-base-content/60 leading-relaxed">
-          A mobile-first slide-up panel. Best for menu items, sharing options, and actions on small screens.
+          A mobile-first slide-up panel. Best for menu items, sharing options,
+          and actions on small screens.
         </p>
       </section>
 
-      <section className="card bg-base-200/50 p-12 border border-base-300 items-center justify-center">
+      <section className="card bg-base-200/50 p-6 md:p-12 border border-base-300 items-center justify-center">
         <div className="flex flex-col items-center gap-6 w-full text-center">
           <div className="flex flex-wrap items-center justify-center gap-4 w-full">
-            <select 
-              className="select select-bordered select-md bg-base-100 w-48" 
-              value={radius} 
+            <select
+              className="select select-bordered select-md bg-base-100 w-48"
+              value={radius}
               onChange={e => setRadius(e.target.value as ModalRadius)}
               aria-label="Bottom sheet radius selector"
             >
@@ -53,7 +54,10 @@ export function BottomSheetDemo() {
               <option value="2xl">Radius: 2XL</option>
               <option value="full">Radius: Full</option>
             </select>
-            <button className="btn btn-primary btn-md px-8 shadow-lg shadow-primary/20" onClick={open}>
+            <button
+              className="btn btn-primary btn-md px-8 shadow-lg shadow-primary/20"
+              onClick={open}
+            >
               Open Share Menu
             </button>
           </div>
@@ -62,11 +66,28 @@ export function BottomSheetDemo() {
           </p>
         </div>
 
-        <BottomSheet isOpen={isOpen} onClose={close} title="Share Options" radius={radius}>
+        <BottomSheet
+          isOpen={isOpen}
+          onClose={close}
+          title="Share Options"
+          radius={radius}
+        >
           <ul className="menu bg-base-200 rounded-box p-4 gap-2">
-            <li><a className="py-3"><Download className="w-5 h-5 opacity-70" /> Download Asset</a></li>
-            <li><a className="py-3"><Share className="w-5 h-5 opacity-70" /> Share with Friends</a></li>
-            <li><a className="text-error py-3"><Trash2 className="w-5 h-5" /> Remove Permanently</a></li>
+            <li>
+              <a className="py-3">
+                <Download className="w-5 h-5 opacity-70" /> Download Asset
+              </a>
+            </li>
+            <li>
+              <a className="py-3">
+                <Share className="w-5 h-5 opacity-70" /> Share with Friends
+              </a>
+            </li>
+            <li>
+              <a className="text-error py-3">
+                <Trash2 className="w-5 h-5" /> Remove Permanently
+              </a>
+            </li>
           </ul>
         </BottomSheet>
       </section>

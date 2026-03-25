@@ -1,8 +1,8 @@
 import { NavLink, useLocation } from 'react-router-dom';
 import { useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { 
-  Palette, 
+import {
+  Palette,
   SlidersHorizontal,
   Home,
   Terminal,
@@ -22,7 +22,8 @@ import {
   PanelRight,
   ChevronLeft,
   ChevronRight,
-  BookOpen
+  X,
+  BookOpen,
 } from 'lucide-react';
 import { Logo } from './Logo';
 import { useDemoStore } from '../store/useDemoStore';
@@ -52,12 +53,22 @@ const components = [
 
 const settings = [
   { name: 'Appearance', path: '/settings/appearance', icon: Palette },
-  { name: 'Preferences', path: '/settings/preferences', icon: SlidersHorizontal },
+  {
+    name: 'Preferences',
+    path: '/settings/preferences',
+    icon: SlidersHorizontal,
+  },
 ];
 
-
-export function Sidebar() {
-  const { isSidebarCollapsed, toggleSidebar } = useDemoStore();
+function SidebarContent({
+  isCollapsed,
+  onNavigate,
+  hideHeader = false,
+}: {
+  isCollapsed: boolean;
+  onNavigate?: () => void;
+  hideHeader?: boolean;
+}) {
   const location = useLocation();
   const navRef = useRef<HTMLElement>(null);
 
@@ -71,36 +82,41 @@ export function Sidebar() {
   }, [location.pathname]);
 
   return (
-    <motion.aside 
-      initial={false}
-      animate={{ width: isSidebarCollapsed ? 80 : 256 }}
-      transition={{ type: "spring", stiffness: 300, damping: 30 }}
-      className="bg-base-200 h-full border-r border-base-300 flex flex-col relative z-20"
-    >
-      {/* Sidebar Header */}
-      <div className={`p-4 border-b border-base-300 flex items-center ${isSidebarCollapsed ? 'justify-center' : 'justify-between'}`}>
-        <div className="flex items-center gap-3 overflow-hidden">
-          <Logo variant="stack" className={isSidebarCollapsed ? 'w-10 h-10' : 'w-9 h-9'} />
-          <AnimatePresence mode="wait">
-            {!isSidebarCollapsed && (
-              <motion.span 
-                initial={{ opacity: 0, x: -10 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -10 }}
-                transition={{ duration: 0.2 }}
-                className="text-xl font-bold tracking-tight whitespace-nowrap"
-              >
-                Modalize
-              </motion.span>
-            )}
-          </AnimatePresence>
+    <>
+      {!hideHeader && (
+        <div
+          className={`p-4 border-b border-base-300 flex items-center ${isCollapsed ? 'justify-center' : 'justify-between'}`}
+        >
+          <div className="flex items-center gap-3 overflow-hidden">
+            <Logo
+              variant="stack"
+              className={isCollapsed ? 'w-10 h-10' : 'w-9 h-9'}
+            />
+            <AnimatePresence mode="wait">
+              {!isCollapsed && (
+                <motion.span
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -10 }}
+                  transition={{ duration: 0.2 }}
+                  className="text-xl font-bold tracking-tight whitespace-nowrap"
+                >
+                  Modalize
+                </motion.span>
+              )}
+            </AnimatePresence>
+          </div>
         </div>
-      </div>
+      )}
 
-      {/* Navigation */}
-      <nav ref={navRef} className="flex-1 overflow-y-auto overflow-x-hidden p-3 custom-scrollbar">
-        <div className={`font-bold text-base-content/40 uppercase mb-4 ${isSidebarCollapsed ? 'text-center text-[14px] tracking-normal pl-[4px]' : 'text-[11px] tracking-[0.2em] px-3'}`}>
-          {isSidebarCollapsed ? '•••' : 'GETTING STARTED'}
+      <nav
+        ref={navRef}
+        className="flex-1 overflow-y-auto overflow-x-hidden p-3 custom-scrollbar"
+      >
+        <div
+          className={`font-bold text-base-content/40 uppercase mb-4 ${isCollapsed ? 'text-center text-[14px] tracking-normal pl-[4px]' : 'text-[11px] tracking-[0.2em] px-3'}`}
+        >
+          {isCollapsed ? '•••' : 'GETTING STARTED'}
         </div>
         <ul className="menu gap-1 px-0">
           {getStarted.map(comp => {
@@ -109,16 +125,19 @@ export function Sidebar() {
               <li key={comp.path} className="group relative">
                 <NavLink
                   to={comp.path}
-                  className={({ isActive }) => 
-                    `flex items-center ${isSidebarCollapsed ? 'justify-center' : 'gap-3 px-4'} py-2.5 rounded-lg transition-colors border-l-4 ${
-                      isActive 
-                        ? 'active bg-primary/10 text-primary font-semibold border-primary rounded-l-none' 
+                  onClick={onNavigate}
+                  className={({ isActive }) =>
+                    `flex items-center ${isCollapsed ? 'justify-center' : 'gap-3 px-4'} py-2.5 rounded-lg transition-colors border-l-4 ${
+                      isActive
+                        ? 'active bg-primary/10 text-primary font-semibold border-primary rounded-l-none'
                         : 'hover:bg-base-300 text-base-content/70 hover:text-base-content border-transparent'
                     }`
                   }
                 >
-                  <Icon className={`w-5 h-5 min-w-[20px] ${isSidebarCollapsed ? 'mx-auto' : ''}`} />
-                  {!isSidebarCollapsed && (
+                  <Icon
+                    className={`w-5 h-5 min-w-[20px] ${isCollapsed ? 'mx-auto' : ''}`}
+                  />
+                  {!isCollapsed && (
                     <motion.span
                       layout
                       initial={{ opacity: 0 }}
@@ -130,10 +149,9 @@ export function Sidebar() {
                   )}
                 </NavLink>
 
-                {/* Motion Tooltip */}
                 <AnimatePresence>
-                  {isSidebarCollapsed && (
-                    <motion.div 
+                  {isCollapsed && (
+                    <motion.div
                       initial={{ opacity: 0, x: 10 }}
                       whileHover={{ opacity: 1, x: 0 }}
                       className="absolute left-20 ml-2 px-3 py-1.5 bg-neutral text-neutral-content text-xs rounded-lg opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity whitespace-nowrap z-50 shadow-xl border border-neutral-focus"
@@ -149,8 +167,10 @@ export function Sidebar() {
 
         <div className="divider my-4 opacity-50"></div>
 
-        <div className={`font-bold text-base-content/40 uppercase mb-4 ${isSidebarCollapsed ? 'text-center text-[14px] tracking-normal pl-[4px]' : 'text-[11px] tracking-[0.2em] px-3'}`}>
-          {isSidebarCollapsed ? '•••' : 'COMPONENTS'}
+        <div
+          className={`font-bold text-base-content/40 uppercase mb-4 ${isCollapsed ? 'text-center text-[14px] tracking-normal pl-[4px]' : 'text-[11px] tracking-[0.2em] px-3'}`}
+        >
+          {isCollapsed ? '•••' : 'COMPONENTS'}
         </div>
         <ul className="menu gap-1 px-0">
           {components.map(comp => {
@@ -159,16 +179,19 @@ export function Sidebar() {
               <li key={comp.path} className="group relative">
                 <NavLink
                   to={comp.path}
-                  className={({ isActive }) => 
-                    `flex items-center ${isSidebarCollapsed ? 'justify-center' : 'gap-3 px-4'} py-2.5 rounded-lg transition-colors border-l-4 ${
-                      isActive 
-                        ? 'active bg-primary/10 text-primary font-semibold border-primary rounded-l-none' 
+                  onClick={onNavigate}
+                  className={({ isActive }) =>
+                    `flex items-center ${isCollapsed ? 'justify-center' : 'gap-3 px-4'} py-2.5 rounded-lg transition-colors border-l-4 ${
+                      isActive
+                        ? 'active bg-primary/10 text-primary font-semibold border-primary rounded-l-none'
                         : 'hover:bg-base-300 text-base-content/70 hover:text-base-content border-transparent'
                     }`
                   }
                 >
-                  <Icon className={`w-5 h-5 min-w-[20px] ${isSidebarCollapsed ? 'mx-auto' : ''}`} />
-                  {!isSidebarCollapsed && (
+                  <Icon
+                    className={`w-5 h-5 min-w-[20px] ${isCollapsed ? 'mx-auto' : ''}`}
+                  />
+                  {!isCollapsed && (
                     <motion.span
                       layout
                       initial={{ opacity: 0 }}
@@ -180,10 +203,9 @@ export function Sidebar() {
                   )}
                 </NavLink>
 
-                {/* Motion Tooltip */}
                 <AnimatePresence>
-                  {isSidebarCollapsed && (
-                    <motion.div 
+                  {isCollapsed && (
+                    <motion.div
                       initial={{ opacity: 0, x: 10 }}
                       whileHover={{ opacity: 1, x: 0 }}
                       className="absolute left-20 ml-2 px-3 py-1.5 bg-neutral text-neutral-content text-xs rounded-lg opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity whitespace-nowrap z-50 shadow-xl border border-neutral-focus"
@@ -199,8 +221,10 @@ export function Sidebar() {
 
         <div className="divider my-4 opacity-50"></div>
 
-        <div className={`font-bold text-base-content/40 uppercase mb-4 ${isSidebarCollapsed ? 'text-center text-[14px] tracking-normal pl-[4px]' : 'text-[11px] tracking-[0.2em] px-3'}`}>
-          {isSidebarCollapsed ? '•••' : 'SETTINGS'}
+        <div
+          className={`font-bold text-base-content/40 uppercase mb-4 ${isCollapsed ? 'text-center text-[14px] tracking-normal pl-[4px]' : 'text-[11px] tracking-[0.2em] px-3'}`}
+        >
+          {isCollapsed ? '•••' : 'SETTINGS'}
         </div>
         <ul className="menu gap-1 px-0">
           {settings.map(setting => {
@@ -209,23 +233,30 @@ export function Sidebar() {
               <li key={setting.path} className="group relative">
                 <NavLink
                   to={setting.path}
-                  className={({ isActive }) => 
-                    `flex items-center ${isSidebarCollapsed ? 'justify-center' : 'gap-3 px-4'} py-2.5 rounded-lg transition-colors border-l-4 ${
-                      isActive 
-                        ? 'active bg-primary/10 text-primary font-semibold border-primary rounded-l-none' 
+                  onClick={onNavigate}
+                  className={({ isActive }) =>
+                    `flex items-center ${isCollapsed ? 'justify-center' : 'gap-3 px-4'} py-2.5 rounded-lg transition-colors border-l-4 ${
+                      isActive
+                        ? 'active bg-primary/10 text-primary font-semibold border-primary rounded-l-none'
                         : 'hover:bg-base-300 text-base-content/70 hover:text-base-content border-transparent'
                     }`
                   }
                 >
-                  <Icon className={`w-5 h-5 min-w-[20px] ${isSidebarCollapsed ? 'mx-auto' : ''}`} />
-                  {!isSidebarCollapsed && (
-                    <motion.span layout initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+                  <Icon
+                    className={`w-5 h-5 min-w-[20px] ${isCollapsed ? 'mx-auto' : ''}`}
+                  />
+                  {!isCollapsed && (
+                    <motion.span
+                      layout
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                    >
                       {setting.name}
                     </motion.span>
                   )}
                 </NavLink>
-                {isSidebarCollapsed && (
-                  <motion.div 
+                {isCollapsed && (
+                  <motion.div
                     initial={{ opacity: 0, x: 10 }}
                     whileHover={{ opacity: 1, x: 0 }}
                     className="absolute left-20 ml-2 px-3 py-1.5 bg-neutral text-neutral-content text-xs rounded-lg opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity whitespace-nowrap z-50 shadow-xl"
@@ -239,31 +270,100 @@ export function Sidebar() {
         </ul>
       </nav>
 
-      {/* Footer & Toggle */}
       <div className="p-3 border-t border-base-300 space-y-3 bg-base-200">
-        <motion.button 
+        <div className="flex justify-center flex-col items-center pb-1">
+          <motion.span
+            layout
+            className={`px-3 py-1.5 bg-base-300 text-base-content/70 rounded-md font-mono font-bold tracking-tight shadow-sm border border-base-content/5 ${isCollapsed ? 'text-[10px]' : 'text-[12px]'}`}
+          >
+            v1.0.0
+          </motion.span>
+        </div>
+      </div>
+    </>
+  );
+}
+
+export function Sidebar() {
+  const {
+    isSidebarCollapsed,
+    toggleSidebar,
+    isMobileSidebarOpen,
+    closeMobileSidebar,
+  } = useDemoStore();
+
+  return (
+    <>
+      <motion.aside
+        initial={false}
+        animate={{ width: isSidebarCollapsed ? 80 : 256 }}
+        transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+        className="bg-base-200 h-full border-r border-base-300 flex-col relative z-20 hidden lg:flex"
+      >
+        <SidebarContent isCollapsed={isSidebarCollapsed} />
+
+        <motion.button
           whileHover={{ x: isSidebarCollapsed ? 5 : -5 }}
           whileTap={{ scale: 0.95 }}
           onClick={toggleSidebar}
-          className="w-full flex items-center justify-center py-2.5 hover:bg-base-300 rounded-lg transition-colors text-base-content/60 hover:text-base-content"
+          className="absolute bottom-20 left-0 right-0 w-full flex items-center justify-center py-2.5 hover:bg-base-300 rounded-lg transition-colors text-base-content/60 hover:text-base-content"
         >
-          {isSidebarCollapsed ? <ChevronRight className="w-5 h-5" /> : (
+          {isSidebarCollapsed ? (
+            <ChevronRight className="w-5 h-5" />
+          ) : (
             <div className="flex items-center gap-2">
               <ChevronLeft className="w-4 h-4 opacity-70" />
               <span className="text-sm font-semibold">Collapse Sidebar</span>
             </div>
           )}
         </motion.button>
-        
-        <div className="flex justify-center flex-col items-center pb-1">
-          <motion.span 
-            layout
-            className={`px-3 py-1.5 bg-base-300 text-base-content/70 rounded-md font-mono font-bold tracking-tight shadow-sm border border-base-content/5 ${isSidebarCollapsed ? 'text-[10px]' : 'text-[12px]'}`}
-          >
-            v1.0.0
-          </motion.span>
-        </div>
-      </div>
-    </motion.aside>
+      </motion.aside>
+
+      <AnimatePresence>
+        {isMobileSidebarOpen && (
+          <>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className="fixed inset-0 bg-black/50 z-40 lg:hidden"
+              onClick={closeMobileSidebar}
+            />
+
+            <motion.aside
+              initial={{ x: -280 }}
+              animate={{ x: 0 }}
+              exit={{ x: -280 }}
+              transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+              className="fixed left-0 top-0 h-full w-72 bg-base-200 border-r border-base-300 flex flex-col z-50 lg:hidden shadow-2xl"
+            >
+              <div className="p-4 border-b border-base-300 flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <Logo variant="stack" className="w-9 h-9" />
+                  <span className="text-xl font-bold tracking-tight">
+                    Modalize
+                  </span>
+                </div>
+                <motion.button
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                  onClick={closeMobileSidebar}
+                  className="btn btn-ghost btn-sm btn-circle"
+                >
+                  <X className="w-5 h-5" />
+                </motion.button>
+              </div>
+
+              <SidebarContent
+                isCollapsed={false}
+                onNavigate={closeMobileSidebar}
+                hideHeader={true}
+              />
+            </motion.aside>
+          </>
+        )}
+      </AnimatePresence>
+    </>
   );
 }

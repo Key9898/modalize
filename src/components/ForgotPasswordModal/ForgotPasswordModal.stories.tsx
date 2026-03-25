@@ -17,17 +17,15 @@ export const Default: Story = {
     const { isOpen, open, close } = useModal(true);
     return (
       <>
-        <button className="btn" onClick={open}>Open Forgot Password</button>
-        <ForgotPasswordModal 
-           {...args} 
-           isOpen={isOpen} 
-           onClose={close} 
-        />
+        <button className="btn" onClick={open}>
+          Open Forgot Password
+        </button>
+        <ForgotPasswordModal {...args} isOpen={isOpen} onClose={close} />
       </>
     );
   },
   args: {
     onSubmit: email => alert(`Reset link sent to: ${email}`),
-    onLogin: () => alert('Back to Login')
+    onLogin: () => alert('Back to Login'),
   },
 };

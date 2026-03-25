@@ -3,7 +3,14 @@ import { Highlight, themes } from 'prism-react-renderer';
 import { Copy, Check } from 'lucide-react';
 import { useDemoStore } from '../store/useDemoStore';
 
-type SupportedLanguage = 'tsx' | 'jsx' | 'bash' | 'css' | 'json' | 'typescript' | 'javascript';
+type SupportedLanguage =
+  | 'tsx'
+  | 'jsx'
+  | 'bash'
+  | 'css'
+  | 'json'
+  | 'typescript'
+  | 'javascript';
 
 interface CodeBlockProps {
   code: string;
@@ -11,7 +18,11 @@ interface CodeBlockProps {
   filename?: string;
 }
 
-export function CodeBlock({ code, language = 'tsx', filename }: CodeBlockProps) {
+export function CodeBlock({
+  code,
+  language = 'tsx',
+  filename,
+}: CodeBlockProps) {
   const [copied, setCopied] = useState(false);
   const { theme } = useDemoStore();
 

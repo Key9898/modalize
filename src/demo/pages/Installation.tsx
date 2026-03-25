@@ -39,23 +39,26 @@ export function Installation() {
       <div className="mb-8">
         <h1 className="text-3xl font-bold mb-4 tracking-tight">Installation</h1>
         <p className="text-base-content/70 text-lg leading-relaxed">
-          Get started with Modalize in your React project. Built for Vite, Tailwind CSS v4, and Framer Motion.
+          Get started with Modalize in your React project. Built for Vite,
+          Tailwind CSS v4, and Framer Motion.
         </p>
       </div>
 
       <div className="space-y-6">
         <section className="space-y-4">
           <h2 className="text-2xl font-semibold">1. Install Package</h2>
-          <p className="text-base-content/70">
-            Install Modalize via npm.
-          </p>
+          <p className="text-base-content/70">Install Modalize via npm.</p>
           <CodeBlock code={installCode} language="bash" filename="Terminal" />
         </section>
 
         <section className="space-y-4">
           <h2 className="text-2xl font-semibold">2. Setup Tailwind CSS</h2>
           <p className="text-base-content/70">
-            Modalize uses Tailwind CSS for styling. Ensure your <code className="font-mono text-sm bg-base-300 px-1.5 py-0.5 rounded">global.css</code> is configured.
+            Modalize uses Tailwind CSS for styling. Ensure your{' '}
+            <code className="font-mono text-sm bg-base-300 px-1.5 py-0.5 rounded">
+              global.css
+            </code>{' '}
+            is configured.
           </p>
           <CodeBlock code={tailwindCode} language="css" filename="global.css" />
         </section>

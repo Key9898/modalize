@@ -18,19 +18,22 @@ export const Default: Story = {
     const { isOpen, open, close } = useModal(true);
     return (
       <>
-        <button className="btn" onClick={open}>Open Empty State</button>
-        <EmptyStateModal 
-           {...args} 
-           isOpen={isOpen} 
-           onClose={close} 
-           action={{ label: 'Create First Project', onClick: close }}
+        <button className="btn" onClick={open}>
+          Open Empty State
+        </button>
+        <EmptyStateModal
+          {...args}
+          isOpen={isOpen}
+          onClose={close}
+          action={{ label: 'Create First Project', onClick: close }}
         />
       </>
     );
   },
   args: {
     title: 'No Projects Found',
-    description: 'Get started by creating a new project. You can add up to 5 projects on the free plan.',
+    description:
+      'Get started by creating a new project. You can add up to 5 projects on the free plan.',
     icon: <FolderX className="w-16 h-16 text-base-content/20" />,
   },
 };
